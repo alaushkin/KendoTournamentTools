@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   def hello
-    render html: "hello, world!"
+     render text: "HALLO, world!"
+  end
+  def test
+    render text: "TEST"
   end
 end
