@@ -4,7 +4,7 @@ class TournamentController < ApplicationController
     render json: {:current_page => p.current_page,
                   :per_page => p.per_page,
                   :total_entries => p.total_entries,
-                  :entries => p}
+                  :entries => p}.to_json(:include => [:status, :tournament_type])
   end
 
   def details
