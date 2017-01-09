@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## KendoTournamentTools
+Rest-API для организации турниров по кендо и иайдо.
+* Создание и редактирование турниров
+* Информация об участниках, статистика
 
-Things you may want to cover:
+## Инструкция по развертыванию приложения
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Ссылка на документацию
