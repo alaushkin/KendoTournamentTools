@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   scope '/tournament' do
     get '/page' => 'tournament#page'
     post '/save' => 'tournament#save'
+    post '/update' => 'tournament#update'
     get '/:id' => 'tournament#details'
   end
   scope '/status' do
