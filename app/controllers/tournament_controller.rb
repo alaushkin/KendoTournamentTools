@@ -1,6 +1,10 @@
 class TournamentController < ApplicationController
   def page
-    render json: Tournament.all
+    p = Tournament.paginate(:page => params[:num], :per_page => params[:per_page])
+    render json: {:current_page => p.current_page,
+                  :per_page => p.per_page,
+                  :total_entries => p.total_entries,
+                  :entries => p}
   end
 
   def details
