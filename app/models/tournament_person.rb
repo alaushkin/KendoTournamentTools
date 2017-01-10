@@ -1,3 +1,5 @@
 class TournamentPerson < ActiveRecord::Base
-  has_many :tournament, :person
+  self.table_name = "tournament_persons"
+  belongs_to :tournament
+  belongs_to :person
 end

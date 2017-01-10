@@ -3,7 +3,4 @@ class ApplicationController < ActionController::Base
   def hello
      render text: "HALLO, world!"
   end
-  def test
-    render text: "TEST"
-  end
 end

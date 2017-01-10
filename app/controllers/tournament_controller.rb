@@ -1,10 +1,18 @@
 class TournamentController < ApplicationController
   def page
-    p = Tournament.paginate(:page => params[:num], :per_page => params[:per_page])
+    filter = {}
+    if !params[:status_id].nil?
+      filter[:status_id] = params[:status_id]
+    end
+    if !params[:tournament_type_id].nil?
+      filter[:tournament_type_id] = params[:tournament_type_id]
+    end
+    p = Tournament.where(filter).order("start_date desc")
+            .paginate(:page => params[:num], :per_page => params[:per_page])
     render json: {:current_page => p.current_page,
                   :per_page => p.per_page,
                   :total_entries => p.total_entries,
-                  :entries => p}.to_json(:include => [:status, :tournament_type])
+                  :entries => p}
   end
 
   def details

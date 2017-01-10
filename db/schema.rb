@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170109061655) do
+ActiveRecord::Schema.define(version: 20170110064317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,14 @@ ActiveRecord::Schema.define(version: 20170109061655) do
   end
 
   create_table "persons", id: :bigserial, force: :cascade do |t|
-    t.integer "age",         limit: 2, null: false
     t.integer "rank",        limit: 2, null: false
     t.boolean "sex",                   null: false
     t.text    "first_name",            null: false
     t.text    "last_name",             null: false
-    t.text    "middle_name",           null: false
+    t.text    "middle_name",
     t.integer "club_id",     limit: 2, null: false
     t.integer "level_id",    limit: 2, null: false
+    t.date    "birth_date"
     t.index ["club_id"], name: "persons_7115697a", using: :btree
     t.index ["level_id"], name: "persons_80e0bd5f", using: :btree
   end
@@ -41,8 +41,10 @@ ActiveRecord::Schema.define(version: 20170109061655) do
   end
 
   create_table "tournament_persons", id: :bigserial, force: :cascade do |t|
-    t.bigint "tournament_id"
-    t.bigint "person_id"
+    t.bigint "tournament_id", null: false
+    t.bigint "person_id",     null: false
+    t.index ["person_id"], name: "fki_person_fk", using: :btree
+    t.index ["tournament_id"], name: "fki_tournament_fk", using: :btree
   end
 
   create_table "tournament_types", force: :cascade do |t|
@@ -62,6 +64,8 @@ ActiveRecord::Schema.define(version: 20170109061655) do
 
   add_foreign_key "persons", "clubs", name: "persons_club_id_45ef2623_fk_clubs_id"
   add_foreign_key "persons", "levels", name: "persons_level_id_29e16dbf_fk_levels_id"
+  add_foreign_key "tournament_persons", "persons", name: "person_fk"
+  add_foreign_key "tournament_persons", "tournaments", name: "tournament_fk"
   add_foreign_key "tournaments", "statuses", name: "tournaments_status_id_394b6e5b_fk_statuses_id"
   add_foreign_key "tournaments", "tournament_types", name: "tournaments_type_id_4b563153_fk_tournament_types_id"
 end
