@@ -18,6 +18,10 @@ gem 'pg', '~> 0.19.0'
 gem 'pry-rails', :group => :development
 gem 'will_paginate'
 gem 'active_model_serializers'
+gem 'carrierwave', '~> 1.0'
+gem 'roo'
+gem 'devise'
+gem 'rolify'
 
 group :development, :test do
   gem 'byebug', platform: :mri

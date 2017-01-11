@@ -1,14 +1,26 @@
 class TournamentPersonController < ApplicationController
-  permit_all_parameters = true
+  #permit_all_parameters = true
 
   def add_to_tournament
+    if !user_signed_in?
+      render json: current_user
+      return
+    end
+    errors = []
     params[:persons].each do |person_id|
       record = TournamentPerson.new
       record[:person_id] = person_id
       record[:tournament_id] = params[:tournament_id]
       record.save
-    end
-    render text: "SUCCESS"
+      if !record.errors.empty?
+        errors.append record
+      end
+      end
+      if !errors.empty?
+        render json: errors
+      else
+        render text: 'SUCCESS'
+      end
   end
 
   def remove_person
@@ -23,16 +35,19 @@ class TournamentPersonController < ApplicationController
   end
 
   def import_persons
-    res = ""
-    # csv_text = request.body.read
-    # rows = CSV.parse(csv_text, :headers => true)
-    # rows.each do |row|
-    #   res = res + row[:first_name]
+    csv = CSV.parse(request.body.read, :headers => true, :col_sep => ';');
+    # headers = csv[0]
+    # res = []
+    # csv.each do |row|
+    #   i = 0;
+    #   map = {}
+    #   row.each do |str|
+    #     map[headers[i]] = str
+    #     i = i+1
+    #   end
+    #   res.append(map)
     # end
-    render text: res
+    render text: request.body.read
   end
 
-  # def tournament_person_params
-  #   params.require(:persons)
-  # end
 end

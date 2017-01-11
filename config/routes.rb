@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { sessions: 'user/sessions' }
+  devise_scope :user do
+    get 'sign_in', to: 'user/sessions#new'
+    post 'sign_in', to: 'user/sessions#create'
+    get 'register', to: 'user/registrations#new'
+    post 'register', to: 'user/registrations#create'
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#hello'
   scope '/rest' do
@@ -10,6 +17,7 @@ Rails.application.routes.draw do
     end
     scope 'person' do
       get '/all' => 'person#findAll'
+      get '/check' => 'person#check'
       get '/:id' => 'person#details'
       post '/save' => 'person#save'
       post '/update' => 'person#update'

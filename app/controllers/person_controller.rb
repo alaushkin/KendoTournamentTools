@@ -9,23 +9,31 @@ class PersonController < ApplicationController
   end
 
   def save
-    model = Person.new(person_params)
-    r = model.save
+    record = Person.new(person_params)
+    r = record.save
     if r == true
-      render json: {:id => model.id}
+      render json: {:id => record.id}
     else
-      render json: {:error => model.errors.full_messages}
+      render json: {:error => record.errors.full_messages}
     end
   end
 
   def update
-    model = Person.find(person_params[:id])
+    record = Person.find(person_params[:id])
     r = t.update person_params
     if r == true
-      render json: {:id => model.id}
+      render json: {:id => record.id}
     else
-      render json: {:error => model.errors.full_messages}
+      render json: {:error => record.errors.full_messages}
     end
+  end
+
+  def check
+    if !user_signed_in?
+      render json: "FUCKUP"
+      return
+    end
+    render json: current_user
   end
 
   def person_params
