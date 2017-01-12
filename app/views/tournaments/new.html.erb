@@ -1,0 +1,47 @@
+<%= form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'save') do |f| %>
+    <table>
+    <tr>
+      <td>Название</td>
+      <td>
+        <%= f.text_field :full_name %>
+      </td>
+    </tr>
+    <tr>
+      <td>Короткое название</td>
+      <td>
+        <%= f.text_field :short_name %>
+      </td>
+    </tr>
+    <tr>
+      <td>Место проведения</td>
+      <td>
+        <%= f.text_field :place %>
+      </td>
+    </tr>
+      <tr>
+        <td>Тип турнира</td>
+        <td>
+          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [ p.name, p.id ] } %>
+        </td>
+      </tr>
+      <tr>
+        <td>Статус турнира</td>
+        <td>
+          <%= f.select :status_id, Status.all.collect { |p| [ p.name, p.id ] } %>
+        </td>
+      </tr>
+    <tr>
+      <td>Дата начала</td>
+      <td>
+        <%= f.date_select :start_date %>
+      </td>
+    </tr>
+    <tr>
+      <td>Дата окончания</td>
+      <td>
+        <%= f.date_select :end_date %>
+      </td>
+    </tr>
+  </table>
+  <%= f.submit "Добавить" %>
+<% end %>

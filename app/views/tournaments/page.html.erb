@@ -1,0 +1,32 @@
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Тип</th>
+    <th>Статус</th>
+    <th>Начало</th>
+    <th>Завершение</th>
+  </tr>
+  <% @page.each do |tournament| %>
+    <tr>
+      <td><%= link_to tournament.short_name.to_s, tournament.id.to_s %></td>
+      <td><%= tournament.tournament_type.name %></td>
+      <td><%= tournament.status.name %></td>
+      <td><%= tournament.start_date %></td>
+      <td><%= tournament.end_date %></td>
+    </tr>
+  <% end %>
+  <tr>
+    <td>
+      <% if @page.current_page > 1 %>
+          <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s %>
+      <% end %>
+      <%= @page.current_page %>
+      /
+      <%= @page.total_pages %>
+      <% if @page.current_page < @page.total_pages %>
+        <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<h2><%= link_to 'Добавить турнир', 'new'%></h2>

@@ -1,0 +1,43 @@
+<table>
+  <tr>
+    <td>Название</td>
+    <td>
+      <input type="text" name="full_name">
+    </td>
+  </tr>
+  <tr>
+    <td>Короткое название</td>
+    <td>
+      <input type="text" name="short_name">
+    </td>
+  </tr>
+  <tr>
+    <td>Место проведения</td>
+    <td>
+      <input type="text" name="place">
+    </td>
+  </tr>
+  <tr>
+    <td>Тип турнира</td>
+    <td>
+      <% types = TournamentType.all %>
+      <select>
+        <% types.each do |type| %>
+            <option value=<%= type.id%> ><%= type.name %></option>
+        <% end %>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td>Дата начала</td>
+    <td>
+      <input type="date" name="start_date">
+    </td>
+  </tr>
+  <tr>
+    <td>Дата окончания</td>
+    <td>
+      <input type="date" name="end_date">
+    </td>
+  </tr>
+</table>

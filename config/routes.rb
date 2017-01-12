@@ -8,6 +8,13 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#hello'
+  scope '/views' do
+    scope '/tournament' do
+      get '/page' => 'tournament#page_view'
+      get '/new' => 'tournament#new_view'
+      get '/:id' => 'tournament#details_view'
+    end
+  end
   scope '/rest' do
     scope '/tournament' do
       get '/page' => 'tournament#page'

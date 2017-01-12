@@ -1,4 +1,30 @@
 class TournamentController < ApplicationController
+  ## Views
+  def page_view
+    filter = {}
+    if !params[:status_id].nil?
+      filter[:status_id] = params[:status_id]
+    end
+    if !params[:tournament_type_id].nil?
+      filter[:tournament_type_id] = params[:tournament_type_id]
+    end
+    @page = Tournament.where(filter).order("start_date desc")
+            .paginate(:page => params[:num], :per_page => params[:per_page])
+    render 'tournaments/page.html.erb'
+  end
+
+  def details_view
+    @tournament = Tournament.find(params[:id])
+    @persons_count = TournamentPerson.where(:tournament_id => @tournament.id).count
+    render 'tournaments/details.html.erb'
+  end
+
+  def new_view
+    render 'tournaments/new.html.erb'
+  end
+
+  ## API
+
   def page
     filter = {}
     if !params[:status_id].nil?
@@ -24,7 +50,7 @@ class TournamentController < ApplicationController
     t = Tournament.new(tournament_params)
     r = t.save
     if r == true
-      render json: {:id => t.id}
+      redirect_to '/views/tournament/'+t.id.to_s
     else
       render json: {:error => t.errors.full_messages}
     end
