@@ -12,7 +12,17 @@ Rails.application.routes.draw do
     scope '/tournament' do
       get '/page' => 'tournament#page_view'
       get '/new' => 'tournament#new_view'
+      get '/edit/:id' => 'tournament#edit_view'
       get '/:id' => 'tournament#details_view'
+    end
+    scope '/person' do
+      get '/page' => 'person#page_view'
+      get 'new' => 'person#new_view'
+      get '/edit/:id' => 'person#edit_view'
+      get '/:id' => 'person#details_view'
+    end
+    scope '/tournament-person' do
+      get '/add_persons' => 'tournament_person#add_persons_view'
     end
   end
   scope '/rest' do
@@ -43,8 +53,8 @@ Rails.application.routes.draw do
     end
     scope '/tournament-person' do
       get '/:tournament_id' => 'tournament_person#persons_by_tournament'
-      post '/:tournament_id/add_persons' => 'tournament_person#add_to_tournament'
-      get '/:tournament_id/remove_person' => 'tournament_person#remove_person'
+      post '/add_persons' => 'tournament_person#add_persons'
+      get '/remove_person' => 'tournament_person#remove_person'
       post '/:tournament_id/import-persons' => 'tournament_person#import_persons'
     end
   end

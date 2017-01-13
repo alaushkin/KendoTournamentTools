@@ -1,43 +1,48 @@
-<table>
-  <tr>
-    <td>Название</td>
-    <td>
-      <input type="text" name="full_name">
-    </td>
-  </tr>
-  <tr>
-    <td>Короткое название</td>
-    <td>
-      <input type="text" name="short_name">
-    </td>
-  </tr>
-  <tr>
-    <td>Место проведения</td>
-    <td>
-      <input type="text" name="place">
-    </td>
-  </tr>
-  <tr>
-    <td>Тип турнира</td>
-    <td>
-      <% types = TournamentType.all %>
-      <select>
-        <% types.each do |type| %>
-            <option value=<%= type.id%> ><%= type.name %></option>
-        <% end %>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td>Дата начала</td>
-    <td>
-      <input type="date" name="start_date">
-    </td>
-  </tr>
-  <tr>
-    <td>Дата окончания</td>
-    <td>
-      <input type="date" name="end_date">
-    </td>
-  </tr>
-</table>
+<%= form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'update') do |f| %>
+    <table>
+      <tr>
+        <td>Название</td>
+        <td>
+          <%= f.text_field :full_name, value:@tournament.full_name %>
+        </td>
+      </tr>
+      <tr>
+        <td>Короткое название</td>
+        <td>
+          <%= f.text_field :short_name, value:@tournament.short_name %>
+        </td>
+      </tr>
+      <tr>
+        <td>Место проведения</td>
+        <td>
+          <%= f.text_field :place, value:@tournament.place %>
+        </td>
+      </tr>
+      <tr>
+        <td>Тип турнира</td>
+        <td>
+          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [ p.name, p.id ] }, value:@tournament.tournament_type %>
+        </td>
+      </tr>
+      <tr>
+        <td>Статус турнира</td>
+        <td>
+          <%= f.select :status_id, Status.all.collect { |p| [ p.name, p.id ] }, value:@tournament.status %>
+        </td>
+      </tr>
+      <tr>
+        <td>Дата начала</td>
+        <td>
+          <%= f.date_select :start_date, value:@tournament.start_date %>
+        </td>
+      </tr>
+      <tr>
+        <td>Дата окончания</td>
+        <td>
+          <%= f.date_select :end_date, value:@tournament.end_date %>
+        </td>
+      </tr>
+    </table>
+    <%= f.hidden_field :tournament_person, value:{:tournament_id => @tournament.id} %>
+    <%= f.submit "Сохранить" %>
+<% end %>

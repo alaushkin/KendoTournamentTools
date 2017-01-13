@@ -1,39 +1,59 @@
 class PersonController < ApplicationController
+  ##VIEWS
+  def page_view
+    @tournament_id = params[:tournament_id]
+    @page = Person.includes(:tournament_persons)
+                .where(tournament_persons: {:tournament_id => params[:tournament_id]})
+                .references(:tournament_persons)
+                .order('last_name asc, first_name asc, middle_name asc')
+                .paginate(:page => params[:num], :per_page => params[:per_page])
+    render 'persons/page'
+  end
+
+  def details_view
+    @person = Person.find(params[:id])
+    render 'persons/details'
+  end
+
+  def edit_view
+    @person = Person.find(params[:id])
+    render 'persons/edit'
+  end
+
+  def new_view
+    @tournament_id = params[:tournament_id]
+    render 'persons/new'
+  end
+
+  ##API
+
   def findAll
     render json: Person.all
   end
 
   def details
-    record = Person.find(params[:id])
-    render json: record.to_json(:include => [:level, :club])
+    person = Person.find(params[:id])
+    render json: person.to_json(:include => [:level, :club])
   end
 
   def save
-    record = Person.new(person_params)
-    r = record.save
+    person = Person.new(person_params)
+    r = person.save
     if r == true
-      render json: {:id => record.id}
+      redirect_to '/views/person/'+person.id.to_s
     else
-      render json: {:error => record.errors.full_messages}
+      render json: {:error => person.errors.full_messages}
     end
   end
 
   def update
     record = Person.find(person_params[:id])
-    r = t.update person_params
+    r = record.update person_params
     if r == true
-      render json: {:id => record.id}
+      redirect_to '/views/person/'+person.id.to_s
     else
-      render json: {:error => record.errors.full_messages}
+      render json: {:error => person.errors.full_messages}
     end
-  end
-
-  def check
-    if !user_signed_in?
-      render json: "FUCKUP"
-      return
-    end
-    render json: current_user
   end
 
   def person_params

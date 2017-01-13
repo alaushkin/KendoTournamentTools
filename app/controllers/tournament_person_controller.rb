@@ -1,16 +1,18 @@
 class TournamentPersonController < ApplicationController
   #permit_all_parameters = true
+  def add_persons_view
+    @tournament_id = params[:tournament_id]
+    render 'tournament_persons/add_persons'
+  end
 
-  def add_to_tournament
-    if !user_signed_in?
-      render json: current_user
-      return
-    end
+  def add_persons
     errors = []
-    params[:persons].each do |person_id|
+    tournament_persons = params[:tournament_persons]
+    persons = tournament_persons[:persons].delete_if{|x| x.empty?}
+    persons.each do |person_id|
       record = TournamentPerson.new
       record[:person_id] = person_id
-      record[:tournament_id] = params[:tournament_id]
+      record[:tournament_id] = tournament_persons[:tournament_id]
       record.save
       if !record.errors.empty?
         errors.append record
@@ -19,7 +21,7 @@ class TournamentPersonController < ApplicationController
       if !errors.empty?
         render json: errors
       else
-        render text: 'SUCCESS'
+        redirect_to '/views/tournament/'+tournament_persons[:tournament_id].to_s
       end
   end
 

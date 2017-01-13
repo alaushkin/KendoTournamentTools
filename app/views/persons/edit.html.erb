@@ -1,0 +1,48 @@
+<%= form_for :person, :url => url_for(:controller => 'person', :action => 'update') do |f| %>
+  <table>
+    <tr>
+      <td>Фамилия</td>
+      <td><%= f.text_field :last_name, value:@person.last_name %></td>
+    </tr>
+    <tr>
+      <td>Имя</td>
+      <td><%= f.text_field :first_name, value:@person.first_name %></td>
+    </tr>
+    <tr>
+      <td>Отчество</td>
+      <td><%= f.text_field :middle_name, value:@person.middle_name %></td>
+    </tr>
+    <tr>
+      <td>Дата рождения</td>
+      <td><%= f.date_select :birth_date, value:@person.birth_date %></td>
+    </tr>
+    <tr>
+      <td>Уровень</td>
+      <td><%= f.select :level_id, Level.all.collect { |p| [ p.name, p.id ] }, value:@person.level %></td>
+    </tr>
+    <tr>
+      <td>Клуб</td>
+      <td><%= f.select :club_id, Club.all.collect { |p| [ p.name, p.id ] }, value:@person.club %></td>
+    </tr>
+    <tr>
+      <td>Рейтинг</td>
+      <td><%= f.text_field :rank, value:@person.rank %></td>
+    </tr>
+    <tr>
+      <td>Пол</td>
+      <td>
+        <%= f.select :sex, [['М', true], ['Ж', false]], value:@person.sex %>
+      </td>
+    </tr>
+    <tr>
+      <td>Телефон</td>
+      <td><%= f.text_field :phone, value:@person.phone %></td>
+    </tr>
+    <tr>
+      <td>Email</td>
+      <td><%= f.text_field :email, value:@person.email %></td>
+    </tr>
+  </table>
+  <%= f.hidden_field :id, value:@person.id %>
+  <%= f.submit 'Сохранить' %>
+<% end %>

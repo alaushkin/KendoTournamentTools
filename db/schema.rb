@@ -64,12 +64,14 @@ ActiveRecord::Schema.define(version: 20170111131613) do
   end
 
   create_table "tournaments", id: :bigserial, force: :cascade do |t|
-    t.text     "full_name",          null: false
-    t.text     "short_name",         null: false
-    t.integer  "status_id",          null: false
-    t.integer  "tournament_type_id", null: false
-    t.datetime "end_date",           null: false
-    t.datetime "start_date",         null: false
+    t.text     "full_name",                       null: false
+    t.text     "short_name",                      null: false
+    t.integer  "status_id",                       null: false
+    t.integer  "tournament_type_id",              null: false
+    t.datetime "end_date",                        null: false
+    t.datetime "start_date",                      null: false
+    t.string   "image_link",         limit: 1024
+    t.string   "place",              limit: 1024
     t.index ["status_id"], name: "tournaments_status_id_394b6e5b_uniq", using: :btree
     t.index ["tournament_type_id"], name: "tournaments_94757cae", using: :btree
   end

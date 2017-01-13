@@ -23,6 +23,11 @@ class TournamentController < ApplicationController
     render 'tournaments/new.html.erb'
   end
 
+  def edit_view
+    @tournament = Tournament.find(params[:id])
+    render 'tournaments/edit.html.erb'
+  end
+
   ## API
 
   def page
@@ -60,13 +65,13 @@ class TournamentController < ApplicationController
     t = Tournament.find(tournament_params[:id])
     r = t.update tournament_params
     if r == true
-      render json: {:id => t.id}
+      redirect_to '/views/tournament/'+t.id.to_s
     else
       render json: {:error => t.errors.full_messages}
     end
   end
 
   def tournament_params
-    params.require(:tournament).permit(:id, :full_name, :short_name, :status_id, :tournament_type_id, :end_date, :start_date)
+    params.require(:tournament).permit(:id, :full_name, :short_name, :status_id, :tournament_type_id, :end_date, :start_date, :place)
   end
 end
