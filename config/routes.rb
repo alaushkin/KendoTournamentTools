@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     post 'sign_in', to: 'user/sessions#create'
     get 'register', to: 'user/registrations#new'
     post 'register', to: 'user/registrations#create'
+    delete 'sign_out', to: 'user/sessions#destroy'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#hello'

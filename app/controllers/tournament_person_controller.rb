@@ -1,11 +1,19 @@
 class TournamentPersonController < ApplicationController
   #permit_all_parameters = true
   def add_persons_view
+    if !user_signed_in?
+      redirect_to '/sign_in'
+      return
+    end
     @tournament_id = params[:tournament_id]
     render 'tournament_persons/add_persons'
   end
 
   def add_persons
+    if !user_signed_in?
+      redirect_to '/sign_in'
+      return
+    end
     errors = []
     tournament_persons = params[:tournament_persons]
     persons = tournament_persons[:persons].delete_if{|x| x.empty?}
@@ -26,9 +34,10 @@ class TournamentPersonController < ApplicationController
   end
 
   def remove_person
+
     record = TournamentPerson.where(:person_id => params[:person_id], :tournament_id => params[:tournament_id]).first
     TournamentPerson.destroy(record[:id])
-    render text: "SUCCESS"
+    render text: 'SUCCESS'
   end
 
   def persons_by_tournament
@@ -37,6 +46,10 @@ class TournamentPersonController < ApplicationController
   end
 
   def import_persons
+    if !user_signed_in?
+      redirect_to '/sign_in'
+      return
+    end
     csv = CSV.parse(request.body.read, :headers => true, :col_sep => ';');
     # headers = csv[0]
     # res = []

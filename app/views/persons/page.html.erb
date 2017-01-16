@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/menu' %>
+<%= render partial: 'layouts/user_pane' %>
 <table>
   <tr>
     <th>ФИО</th>
@@ -27,15 +29,7 @@
   <% end %>
   <tr>
     <td>
-      <% if @page.current_page > 1 %>
-          <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s %>
-      <% end %>
-      <%= @page.current_page %>
-      /
-      <%= @page.total_pages %>
-      <% if @page.current_page < @page.total_pages %>
-          <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s %>
-      <% end %>
+      <%= render partial: 'layouts/paging', locals: { page: @page } %>
     </td>
   </tr>
 </table>

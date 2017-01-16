@@ -1,0 +1,7 @@
+<% if user_signed_in? %>
+    <%= 'Вы зашли как:' %>
+    <%= current_user.email %>
+    <%= link_to 'Выйти', '/sign_out', method: :delete %>
+<% else %>
+    <%= link_to 'Выполнить вход', '/sign_in' %>
+<% end %>

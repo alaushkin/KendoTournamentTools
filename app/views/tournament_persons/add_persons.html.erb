@@ -1,3 +1,5 @@
+<%= render partial: 'layouts/menu' %>
+<%= render partial: 'layouts/user_pane' %>
 <%= form_for :tournament_persons, :url => url_for(:controller => 'tournament_person', :action => 'add_persons') do |f| %>
     <ul>
       <%= f.collection_check_boxes :persons, Person.all, :id, :last_name do |b|%>
