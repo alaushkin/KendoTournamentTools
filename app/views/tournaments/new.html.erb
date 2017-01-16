@@ -1,7 +1,13 @@
 <%= render partial: 'layouts/menu' %>
 <%= render partial: 'layouts/user_pane' %>
 <%= form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'save') do |f| %>
-    <table>
+  <table>
+    <tr>
+      <td>Логотип</td>
+      <td>
+        <%= f.file_field :logo %>
+      </td>
+    </tr>
     <tr>
       <td>Название</td>
       <td>
@@ -45,5 +51,5 @@
       </td>
     </tr>
   </table>
-  <%= f.submit "Добавить" %>
+  <%= f.submit 'Добавить' %>
 <% end %>

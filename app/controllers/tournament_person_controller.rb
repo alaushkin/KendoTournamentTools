@@ -9,6 +9,15 @@ class TournamentPersonController < ApplicationController
     render 'tournament_persons/add_persons'
   end
 
+  def import_persons_view
+    if !user_signed_in?
+      redirect_to '/sign_in'
+      return
+    end
+    @tournament_id = params[:tournament_id]
+    render 'tournament_persons/import'
+  end
+
   def add_persons
     if !user_signed_in?
       redirect_to '/sign_in'
@@ -16,7 +25,7 @@ class TournamentPersonController < ApplicationController
     end
     errors = []
     tournament_persons = params[:tournament_persons]
-    persons = tournament_persons[:persons].delete_if{|x| x.empty?}
+    persons = tournament_persons[:persons].delete_if { |x| x.empty? }
     persons.each do |person_id|
       record = TournamentPerson.new
       record[:person_id] = person_id
@@ -25,12 +34,12 @@ class TournamentPersonController < ApplicationController
       if !record.errors.empty?
         errors.append record
       end
-      end
-      if !errors.empty?
-        render json: errors
-      else
-        redirect_to '/views/tournament/'+tournament_persons[:tournament_id].to_s
-      end
+    end
+    if !errors.empty?
+      render json: errors
+    else
+      redirect_to '/views/tournament/'+tournament_persons[:tournament_id].to_s
+    end
   end
 
   def remove_person
@@ -41,8 +50,8 @@ class TournamentPersonController < ApplicationController
   end
 
   def persons_by_tournament
-     record = TournamentPerson.where(:tournament_id => params[:tournament_id])
-     render json: record.to_json(:include => :person)
+    record = TournamentPerson.where(:tournament_id => params[:tournament_id])
+    render json: record.to_json(:include => :person)
   end
 
   def import_persons
@@ -50,19 +59,53 @@ class TournamentPersonController < ApplicationController
       redirect_to '/sign_in'
       return
     end
-    csv = CSV.parse(request.body.read, :headers => true, :col_sep => ';');
-    # headers = csv[0]
-    # res = []
-    # csv.each do |row|
-    #   i = 0;
-    #   map = {}
-    #   row.each do |str|
-    #     map[headers[i]] = str
-    #     i = i+1
-    #   end
-    #   res.append(map)
-    # end
-    render text: request.body.read
+    file =params[:persons][:csv_file].read.force_encoding('windows-1251')
+    csv = CSV.parse(file.encode('utf-8'), :headers => true, :col_sep => ';');
+    csv.each do |row|
+      add_or_create(row, params[:persons][:tournament_id])
+    end
+    redirect_to '/views/tournament/'+params[:persons][:tournament_id].to_s
   end
 
+  def add_or_create(row, tournament_id)
+    p 'ZUUi' +row['last_name'].to_s
+    filter = {}
+    if !row['last_name'].nil?
+      filter[:last_name] = row['last_name']
+    end
+    if !row['first_name'].nil?
+      filter[:first_name] = row['first_name']
+    end
+    if !row['middle_name'].nil?
+      filter[:middle_name] = row['middle_name']
+    end
+    persons = Person.where(filter)
+    tournament_person = TournamentPerson.new
+    if persons.count == 1
+      tournament_person[:person_id] = persons[0].id
+      tournament_person[:tournament_id] = tournament_id
+    end
+    if persons.count == 0
+      person = Person.new
+      person[:first_name] = row['first_name']
+      person[:last_name] = row['last_name']
+      person[:middle_name] = row['middle_name']
+      person[:birth_date] = row['birth_date']
+      person[:phone] = row['phone']
+      person[:email] = row['email']
+      level = Level.where(:name => row['level']).first
+      person.level_id = level.id
+      club = Club.where(:name => row['club']).first
+      if club.nil?
+        club = Club.new(:name => row['club'])
+        club.save
+      end
+      person.club_id = club.id
+      person.sex = row['sex'] == 'М'
+      person.save
+      tournament_person[:person_id] = person.id
+      tournament_person[:tournament_id] = tournament_id
+    end
+    tournament_person.save
+  end
 end

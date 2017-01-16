@@ -29,9 +29,17 @@
   <% end %>
   <tr>
     <td>
-      <%= render partial: 'layouts/paging', locals: { page: @page } %>
+      <% if @page.current_page > 1 %>
+          <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
+      <% end %>
+      <%= @page.current_page %>
+      /
+      <%= @page.total_pages %>
+      <% if @page.current_page < @page.total_pages %>
+          <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
+      <% end %>
     </td>
   </tr>
 </table>
 <h2><%= link_to 'Добавить участников', '/views/tournament-person/add_persons?tournament_id='+@tournament_id.to_s %></h2>
-<h2><%= link_to 'Импорт участников', '/views/tournament-person/add_persons?tournament_id='+@tournament_id.to_s %></h2>
+<h2><%= link_to 'Импорт участников', '/views/tournament-person/import?tournament_id='+@tournament_id.to_s %></h2>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     end
     scope '/tournament-person' do
       get '/add_persons' => 'tournament_person#add_persons_view'
+      get '/import' => 'tournament_person#import_persons_view'
     end
   end
   scope '/rest' do
@@ -57,6 +58,7 @@ Rails.application.routes.draw do
       post '/add_persons' => 'tournament_person#add_persons'
       get '/remove_person' => 'tournament_person#remove_person'
       post '/:tournament_id/import-persons' => 'tournament_person#import_persons'
+      post '/import' => 'tournament_person#import_persons'
     end
   end
 end

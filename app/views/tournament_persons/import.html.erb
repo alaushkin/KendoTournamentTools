@@ -1,0 +1,7 @@
+<%= render partial: 'layouts/menu' %>
+<%= render partial: 'layouts/user_pane' %>
+<%= form_for :persons, :url => url_for(:controller => 'tournament_person', :action => 'import_persons') do |f| %>
+    <%= f.file_field :csv_file, :accept => 'text/csv' %>
+    <%= f.hidden_field :tournament_id, value:@tournament_id %>
+    <%= f.submit 'Импорт' %>
+<% end %>
