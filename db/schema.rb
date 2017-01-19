@@ -20,14 +20,16 @@ ActiveRecord::Schema.define(version: 20170111131613) do
   end
 
   create_table "fights", id: :bigint, default: -> { "nextval('fight_id_seq'::regclass)" }, force: :cascade do |t|
-    t.bigint  "red_person_id"
-    t.bigint  "white_person_id"
-    t.boolean "winner"
-    t.string  "figth_time",      limit: 64
-    t.string  "red_hits",        limit: 512
-    t.string  "white_hits",      limit: 512
-    t.bigint  "parent"
-    t.bigint  "tournament_id"
+    t.bigint "red_person_id"
+    t.bigint "white_person_id"
+    t.string "figth_time",         limit: 64
+    t.string "red_hits",           limit: 512
+    t.string "white_hits",         limit: 512
+    t.bigint "parent"
+    t.bigint "tournament_id"
+    t.bigint "tournament_pool_id"
+    t.bigint "winner_id"
+    t.index ["tournament_pool_id"], name: "fki_fight_pool_id", using: :btree
   end
 
   create_table "levels", id: :integer, limit: 2, force: :cascade do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170111131613) do
   create_table "tournament_pools", id: :bigserial, force: :cascade do |t|
     t.bigint "tournament_id"
     t.string "name",          limit: 128
+    t.index ["tournament_id"], name: "fki_tournament_pools_fk", using: :btree
   end
 
   create_table "tournament_types", force: :cascade do |t|
@@ -120,10 +123,12 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "fights", "tournament_pools", name: "fight_pool_id"
   add_foreign_key "persons", "clubs", name: "persons_club_id_45ef2623_fk_clubs_id"
   add_foreign_key "persons", "levels", name: "persons_level_id_29e16dbf_fk_levels_id"
   add_foreign_key "tournament_persons", "persons", name: "person_fk"
   add_foreign_key "tournament_persons", "tournaments", name: "tournament_fk"
+  add_foreign_key "tournament_pools", "tournaments", name: "tournament_pools_fk"
   add_foreign_key "tournaments", "statuses", name: "tournaments_status_id_394b6e5b_fk_statuses_id"
   add_foreign_key "tournaments", "tournament_types", name: "tournaments_type_id_4b563153_fk_tournament_types_id"
 end
