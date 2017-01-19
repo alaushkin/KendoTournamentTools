@@ -1,0 +1,5 @@
+<%= form_for :pool, :url => url_for(:controller => 'tournament_pool',:action => 'generate')  do |f|%>
+  <%= text_field :count, value:0 %>
+  <%= hidden_field :tournament_id, value:@tournament_id %>
+  <%= f.submit 'Генерировать' %>
+<% end %>

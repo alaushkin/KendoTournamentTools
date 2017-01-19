@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: 'user/sessions' }
+  devise_for :users, controllers: {sessions: 'user/sessions'}
   devise_scope :user do
     get 'sign_in', to: 'user/sessions#new'
     post 'sign_in', to: 'user/sessions#create'
@@ -9,27 +9,28 @@ Rails.application.routes.draw do
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'application#hello'
-  scope '/views' do
-    scope '/tournament' do
-      get '/page' => 'tournament#page_view'
-      get '/new' => 'tournament#new_view'
-      get '/edit/:id' => 'tournament#edit_view'
-      get '/:id' => 'tournament#details_view'
-    end
-    scope '/person' do
-      get '/page' => 'person#page_view'
-      get 'new' => 'person#new_view'
-      get '/edit/:id' => 'person#edit_view'
-      get '/:id' => 'person#details_view'
-    end
-    scope '/tournament-person' do
-      get '/add_persons' => 'tournament_person#add_persons_view'
-      get '/import' => 'tournament_person#import_persons_view'
-    end
-    scope '/user' do
-      get '/page' => 'user#page'
-      get '/' => 'user#details'
-    end
+  scope '/tournament' do
+    get '/page' => 'tournament#page_view'
+    get '/new' => 'tournament#new_view'
+    get '/edit/:id' => 'tournament#edit_view'
+    get '/:id' => 'tournament#details_view'
+  end
+  scope '/person' do
+    get '/page' => 'person#page_view'
+    get 'new' => 'person#new_view'
+    get '/edit/:id' => 'person#edit_view'
+    get '/:id' => 'person#details_view'
+  end
+  scope '/tournament-person' do
+    get '/add_persons' => 'tournament_person#add_persons_view'
+    get '/import' => 'tournament_person#import_persons_view'
+  end
+  scope '/user' do
+    get '/page' => 'user#page'
+    get '/' => 'user#details'
+  end
+  scope '/tournament-pool' do
+    get '/generate' => 'tournament_pool#generate_view'
   end
   scope '/rest' do
     scope '/tournament' do
@@ -71,6 +72,9 @@ Rails.application.routes.draw do
     scope '/user' do
       post '/add_role' => 'user#add_role'
       post '/remove_role' => 'user#remove_role'
+    end
+    scope '/tournament-pool' do
+      post '/generate' => 'tournament_pool#generate'
     end
   end
 end

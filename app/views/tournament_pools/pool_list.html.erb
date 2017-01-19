@@ -1,0 +1,14 @@
+<H1>Список пулов</H1>
+<table>
+  <tr>
+    <th>Название</th>
+    <th>Количество поединков</th>
+    <th>Количество завершенных поединков</th>
+  </tr>
+  <% @pools.each do |pool|%>
+    <tr>
+      <td><%= link_to pool.name, '/tournament-pool/?pool_id='+pool.tournament_id.to_s %></td>
+      <td><%= pool.fights.count %></td>
+    </tr>
+  <% end %>
+</table>

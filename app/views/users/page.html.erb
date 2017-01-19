@@ -1,6 +1,6 @@
 <table>
   <% @page.each do |user| %>
-      <%= link_to user.email, '/views/user/?email='+user.email %>
+      <%= link_to user.email, '/user/?email='+user.email %>
       <br/>
   <% end %>
   <tr>

@@ -64,7 +64,7 @@ class TournamentController < ApplicationController
     t = Tournament.new(tournament_params)
     r = t.save
     if r == true
-      redirect_to '/views/tournament/'+t.id.to_s
+      redirect_to '/tournament/'+t.id.to_s
     else
       render json: {:error => t.errors.full_messages}
     end
@@ -77,7 +77,7 @@ class TournamentController < ApplicationController
     t = Tournament.find(tournament_params[:id])
     r = t.update tournament_params
     if r == true
-      redirect_to '/views/tournament/'+t.id.to_s
+      redirect_to '/tournament/'+t.id.to_s
     else
       render json: {:error => t.errors.full_messages}
     end

@@ -15,12 +15,12 @@ class UserController < ApplicationController
   def add_role
     user = User.where(:email => params[:user_role][:email]).first
     user.add_role params[:user_role][:role]
-    redirect_to '/views/user?email='+user.email
+    redirect_to '/user?email='+user.email
   end
 
   def remove_role
     user = User.where(:email => params[:email]).first
     user.remove_role params[:role]
-    redirect_to '/views/user?email='+user.email
+    redirect_to '/user?email='+user.email
   end
 end

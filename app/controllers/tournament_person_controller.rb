@@ -35,7 +35,7 @@ class TournamentPersonController < ApplicationController
     if !errors.empty?
       render json: errors
     else
-      redirect_to '/views/tournament/'+tournament_persons[:tournament_id].to_s
+      redirect_to '/tournament/'+tournament_persons[:tournament_id].to_s
     end
   end
 
@@ -62,7 +62,7 @@ class TournamentPersonController < ApplicationController
     csv.each do |row|
       add_or_create(row, params[:persons][:tournament_id])
     end
-    redirect_to '/views/tournament/'+params[:persons][:tournament_id].to_s
+    redirect_to '/tournament/'+params[:persons][:tournament_id].to_s
   end
 
   def add_or_create(row, tournament_id)

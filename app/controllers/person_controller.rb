@@ -49,7 +49,7 @@ class PersonController < ApplicationController
     person = Person.new(person_params)
     r = person.save
     if r == true
-      redirect_to '/views/person/'+person.id.to_s
+      redirect_to '/person/'+person.id.to_s
     else
       render json: {:error => person.errors.full_messages}
     end
@@ -62,7 +62,7 @@ class PersonController < ApplicationController
     record = Person.find(person_params[:id])
     r = record.update person_params
     if r == true
-      redirect_to '/views/person/'+person.id.to_s
+      redirect_to '/person/'+person.id.to_s
     else
       render json: {:error => person.errors.full_messages}
     end
