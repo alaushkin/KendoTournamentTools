@@ -17,4 +17,8 @@ production:
   adapter: postgresql
   pool: 5
   timeout: 5000
-  database: postgres
+  database: dd3p7skheje2ls
+  username: rnbwupmykiunhk
+  password: 7c46c0d7b81a4b0df85934379d191e5b7058a8d7b3648e0f5afb3f5c4b3ab880
+  host: rnbwupmykiunhk:7c46c0d7b81a4b0df85934379d191e5b7058a8d7b3648e0f5afb3f5c4b3ab880@ec2-54-225-104-61.compute-1.amazonaws.com
+  port: 5432
