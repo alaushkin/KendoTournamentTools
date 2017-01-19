@@ -1,8 +1,7 @@
 class TournamentPersonController < ApplicationController
   #permit_all_parameters = true
   def add_persons_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     @tournament_id = params[:tournament_id]
@@ -10,8 +9,7 @@ class TournamentPersonController < ApplicationController
   end
 
   def import_persons_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     @tournament_id = params[:tournament_id]
@@ -19,8 +17,7 @@ class TournamentPersonController < ApplicationController
   end
 
   def add_persons
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     errors = []
@@ -43,7 +40,9 @@ class TournamentPersonController < ApplicationController
   end
 
   def remove_person
-
+    if !check_user
+      return
+    end
     record = TournamentPerson.where(:person_id => params[:person_id], :tournament_id => params[:tournament_id]).first
     TournamentPerson.destroy(record[:id])
     render text: 'SUCCESS'
@@ -55,8 +54,7 @@ class TournamentPersonController < ApplicationController
   end
 
   def import_persons
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     file =params[:persons][:csv_file].read.force_encoding('windows-1251')

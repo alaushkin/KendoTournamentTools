@@ -20,16 +20,14 @@ class TournamentController < ApplicationController
   end
 
   def new_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     render 'tournaments/new.html.erb'
   end
 
   def edit_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     @tournament = Tournament.find(params[:id])
@@ -60,8 +58,7 @@ class TournamentController < ApplicationController
   end
 
   def save
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     t = Tournament.new(tournament_params)
@@ -74,8 +71,7 @@ class TournamentController < ApplicationController
   end
 
   def update
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     t = Tournament.find(tournament_params[:id])

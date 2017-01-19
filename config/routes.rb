@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       get '/add_persons' => 'tournament_person#add_persons_view'
       get '/import' => 'tournament_person#import_persons_view'
     end
+    scope '/user' do
+      get '/page' => 'user#page'
+      get '/' => 'user#details'
+    end
   end
   scope '/rest' do
     scope '/tournament' do
@@ -59,6 +63,14 @@ Rails.application.routes.draw do
       get '/remove_person' => 'tournament_person#remove_person'
       post '/:tournament_id/import-persons' => 'tournament_person#import_persons'
       post '/import' => 'tournament_person#import_persons'
+    end
+    scope '/store' do
+      post '/upload' => 'upload#upload_image'
+      get '/' => 'upload#get_image'
+    end
+    scope '/user' do
+      post '/add_role' => 'user#add_role'
+      post '/remove_role' => 'user#remove_role'
     end
   end
 end

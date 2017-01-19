@@ -1,2 +1,5 @@
-<%= link_to 'К списку турниров', '/sign_in' %>
+<%= link_to 'К списку турниров', '/views/tournament/page?num=1&per_page=10' %>
+<% if user_signed_in? %>
+    <%= link_to 'Зарегистрированные пользователи', '/views/user/page?num=1&per_page=10' %>
+<% end %>
 <br/>

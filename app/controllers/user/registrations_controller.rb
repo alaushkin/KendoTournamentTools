@@ -3,19 +3,22 @@ class User::RegistrationsController < Devise::RegistrationsController
 # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    render layout: "sessions"
+    super
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    render layout: "sessions"
+    super
+  end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    render layout: "sessions"
+    super
+  end
 
   # PUT /resource
   # def update

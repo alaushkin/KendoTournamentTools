@@ -21,6 +21,8 @@ gem 'carrierwave', '~> 1.0'
 gem 'roo'
 gem 'devise'
 gem 'rolify'
+gem 'uuid'
+gem 'remotipart', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', platform: :mri

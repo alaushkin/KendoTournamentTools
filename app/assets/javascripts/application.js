@@ -14,3 +14,25 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+//= require jquery.remotipart
+
+
+$('#avatar').fileupload({
+
+    url: '/rest/store/upload',
+    dataType: 'json',
+    type: 'post',
+
+    add: function (e, data) {
+        $(this).avatar_loading('avatar_loading');
+        data.submit();
+    },
+    success: function (data, status) {;
+        $("#avatar_img").fadeOut('fast', function() {
+            $(this).attr("src", data.avatar_url).fadeIn('fast', function(){
+                $(this).avatar_loading('avatar_loading');
+            });
+        });
+    }
+
+});

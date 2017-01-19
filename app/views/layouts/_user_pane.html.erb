@@ -1,5 +1,6 @@
 <% if user_signed_in? %>
     <%= 'Вы зашли как:' %>
+    <br/>
     <%= current_user.email %>
     <%= link_to 'Выйти', '/sign_out', method: :delete %>
 <% else %>

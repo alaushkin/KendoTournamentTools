@@ -16,8 +16,7 @@ class PersonController < ApplicationController
   end
 
   def edit_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     @person = Person.find(params[:id])
@@ -25,8 +24,7 @@ class PersonController < ApplicationController
   end
 
   def new_view
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     @tournament_id = params[:tournament_id]
@@ -45,8 +43,7 @@ class PersonController < ApplicationController
   end
 
   def save
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     person = Person.new(person_params)
@@ -59,8 +56,7 @@ class PersonController < ApplicationController
   end
 
   def update
-    if !user_signed_in?
-      redirect_to '/sign_in'
+    if !check_user
       return
     end
     record = Person.find(person_params[:id])

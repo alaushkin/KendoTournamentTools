@@ -1,0 +1,10 @@
+<H1><%= @user.email %></H1>
+<% @user.roles.each do |role|%>
+    <%= role.name %> <%= button_to 'Убрать', {:controller => 'user', :action => 'remove_role', :email => @user.email, :role=> role[:name]} , :method=>:post  %>
+    <br/>
+<% end %>
+<%= form_for :user_role, :url => url_for(:controller => 'user', :action => 'add_role') do |f| %>
+    <%= f.select :role, Role.all.collect { |r| [ r.name, r.name] } %>
+    <%= f.hidden_field :email, value:@user.email %>
+    <%= f.submit 'Добавить' %>
+<%end%>

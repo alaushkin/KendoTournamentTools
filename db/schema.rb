@@ -15,8 +15,19 @@ ActiveRecord::Schema.define(version: 20170111131613) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "clubs", id: :integer, limit: 2, force: :cascade do |t|
+  create_table "clubs", force: :cascade do |t|
     t.text "name", null: false
+  end
+
+  create_table "fights", id: :bigint, default: -> { "nextval('fight_id_seq'::regclass)" }, force: :cascade do |t|
+    t.bigint  "red_person_id"
+    t.bigint  "white_person_id"
+    t.boolean "winner"
+    t.string  "figth_time",      limit: 64
+    t.string  "red_hits",        limit: 512
+    t.string  "white_hits",      limit: 512
+    t.bigint  "parent"
+    t.bigint  "tournament_id"
   end
 
   create_table "levels", id: :integer, limit: 2, force: :cascade do |t|
@@ -32,10 +43,15 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.integer "club_id",     limit: 2,   null: false
     t.integer "level_id",    limit: 2,   null: false
     t.date    "birth_date"
-    t.string  "phone",       limit: 15
+    t.string  "phone",       limit: 30
     t.string  "email",       limit: 255
     t.index ["club_id"], name: "persons_7115697a", using: :btree
     t.index ["level_id"], name: "persons_80e0bd5f", using: :btree
+  end
+
+  create_table "pool_fights", id: :bigserial, force: :cascade do |t|
+    t.bigint "tournament_pool_id"
+    t.bigint "fight_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -57,6 +73,11 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.bigint "person_id",     null: false
     t.index ["person_id"], name: "fki_person_fk", using: :btree
     t.index ["tournament_id"], name: "fki_tournament_fk", using: :btree
+  end
+
+  create_table "tournament_pools", id: :bigserial, force: :cascade do |t|
+    t.bigint "tournament_id"
+    t.string "name",          limit: 128
   end
 
   create_table "tournament_types", force: :cascade do |t|
