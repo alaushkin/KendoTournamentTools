@@ -1,0 +1,48 @@
+<%= form_for :person, :url => url_for(:controller => 'person', :action => 'save') do |f| %>
+    <table>
+      <tr>
+        <td>Фамилия</td>
+        <td><%= f.text_field :last_name %></td>
+      </tr>
+      <tr>
+        <td>Имя</td>
+        <td><%= f.text_field :first_name %></td>
+      </tr>
+      <tr>
+        <td>Отчество</td>
+        <td><%= f.text_field :middle_name %></td>
+      </tr>
+      <tr>
+        <td>Дата рождения</td>
+        <td><%= f.date_select :birth_date %></td>
+      </tr>
+      <tr>
+        <td>Уровень</td>
+        <td><%= f.select :level_id, Level.all.collect { |p| [ p.name, p.id ] } %></td>
+      </tr>
+      <tr>
+        <td>Клуб</td>
+        <td><%= f.select :club_id, Club.all.collect { |p| [ p.name, p.id ] } %></td>
+      </tr>
+      <tr>
+        <td>Рейтинг</td>
+        <td><%= f.text_field :rank %></td>
+      </tr>
+      <tr>
+        <td>Пол</td>
+        <td>
+          <%= f.select :sex, [['М', true], ['Ж', false]] %>
+        </td>
+      </tr>
+      <tr>
+        <td>Телефон</td>
+        <td><%= f.text_field :phone %></td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><%= f.text_field :email %></td>
+      </tr>
+    </table>
+    <%= f.hidden_field :tournament_id, value:@tournament_id  %>
+    <%= f.submit 'Добавить нового' %>
+<% end %>

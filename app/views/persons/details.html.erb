@@ -1,0 +1,41 @@
+<h1><%= @person.last_name.to_s+@person.first_name.to_s+@person.middle_name.to_s %></h1>
+<table>
+  <tr>
+    <td>Год рождения</td>
+    <td><%= @person.birth_date %></td>
+  </tr>
+  <tr>
+    <td>Уровень</td>
+    <td><%= @person.level.name %></td>
+  </tr>
+  <tr>
+    <td>Клуб</td>
+    <td><%= @person.club.name %></td>
+  </tr>
+  <tr>
+    <td>Рейтинг</td>
+    <td><%= @person.rank %></td>
+  </tr>
+  <tr>
+    <td>Пол</td>
+    <% if @person.sex %>
+      <td>М</td>
+    <% else %>
+      <td>Ж</td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Телефон</td>
+    <td><%= @person.phone %></td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td><%= @person.email %></td>
+  </tr>
+  <tr>
+    <td>Количество турниров в которых зарегистрирован</td>
+    <td><%= @person.tournament_persons.count %></td>
+  </tr>
+</table>
+<%= link_to 'Редактировать', 'edit/'+@person.id.to_s %>
+<%= render partial: 'layouts/menu' %>

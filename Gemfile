@@ -6,7 +6,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'rails', '~> 5.0.1'
-gem 'sqlite3'
 gem 'puma', '~> 3.0'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -18,6 +17,12 @@ gem 'pg', '~> 0.19.0'
 gem 'pry-rails', :group => :development
 gem 'will_paginate'
 gem 'active_model_serializers'
+gem 'carrierwave', '~> 1.0'
+gem 'roo'
+gem 'devise'
+gem 'rolify'
+gem 'uuid'
+gem 'remotipart', '~> 1.2'
 
 group :development, :test do
   gem 'byebug', platform: :mri

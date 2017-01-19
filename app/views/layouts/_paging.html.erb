@@ -1,0 +1,9 @@
+<% if @page.current_page > 1 %>
+    <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s %>
+<% end %>
+<%= @page.current_page %>
+/
+<%= @page.total_pages %>
+<% if @page.current_page < @page.total_pages %>
+    <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s %>
+<% end %>

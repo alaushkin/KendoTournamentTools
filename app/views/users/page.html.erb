@@ -1,0 +1,11 @@
+<table>
+  <% @page.each do |user| %>
+      <%= link_to user.email, '/user/?email='+user.email %>
+      <br/>
+  <% end %>
+  <tr>
+    <td>
+      <%= render partial: 'layouts/paging', locals: {page: @page} %>
+    </td>
+  </tr>
+</table>
