@@ -12,3 +12,9 @@ development:
   password: postgres
   host: localhost
   port: 5432
+
+production:
+  adapter: postgresql
+  pool: 5
+  timeout: 5000
+  database: postgres
