@@ -1,0 +1,32 @@
+<H1>Пул <%= @pool.name %> </H1>
+<table>
+  <tr>
+    <th>Белый</th>
+    <th>Красный</th>
+    <th>Победитель</th>
+  </tr>
+  <% @pool.fights.each do |fight| %>
+      <tr>
+        <td>
+          <% if !fight.white_person.nil? %>
+              <%= link_to fight.white_person.last_name.to_s+' '+fight.white_person.first_name.to_s+' '+fight.white_person.middle_name.to_s %>
+          <% end %>
+        </td>
+        <td>
+          <% if !fight.red_person.nil? %>
+              <%= link_to fight.red_person.last_name.to_s+' '+fight.red_person.first_name.to_s+' '+fight.red_person.middle_name.to_s %>
+          <% end %></td>
+        <td>
+          <% if !fight.winner_id.nil? %>
+              <% if fight.winner_id==fight.red_person_id %>
+                  Красный
+              <% else %>
+                  Белый
+              <% end %>
+          <% else %>
+              Не известно
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+</table>

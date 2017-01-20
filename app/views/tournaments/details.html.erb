@@ -30,5 +30,5 @@
 <% if @tournament.tournament_pools.count==0 %>
     <h4><%= link_to 'Генерировать пулы', '/tournament-pool/generate?tournament_id='+@tournament.id.to_s  %></h4>
 <% else %>
-    <h4><%= link_to 'Список пулов' %></h4>
+    <h4><%= link_to 'Список пулов', '/tournament-pool/'+@tournament.id.to_s+'/list' %></h4>
 <% end %>

@@ -7,7 +7,7 @@
   </tr>
   <% @pools.each do |pool|%>
     <tr>
-      <td><%= link_to pool.name, '/tournament-pool/?pool_id='+pool.tournament_id.to_s %></td>
+      <td><%= link_to pool.name, '/tournament-pool/'+pool.id.to_s %></td>
       <td><%= pool.fights.count %></td>
     </tr>
   <% end %>

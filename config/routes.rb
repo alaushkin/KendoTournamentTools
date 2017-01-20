@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   end
   scope '/tournament-pool' do
     get '/generate' => 'tournament_pool#generate_view'
+    get '/:tournament_id/list' => 'tournament_pool#pool_list_view'
+    get '/:pool_id' => 'tournament_pool#details_view'
   end
   scope '/rest' do
     scope '/tournament' do
