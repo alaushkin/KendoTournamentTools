@@ -1,0 +1,46 @@
+<% if @fight.fight_state.id == 3 %>
+    <H3>Победитель: </H3>
+    <% if @fight.winner_id.nil? %>
+        Хикиваге
+    <% else %>
+        <% if @fight.white_hits == @fight.winner_id %>
+            Белый
+        <% else %>
+            Красный
+        <% end %>
+    <% end %>
+<% end %>
+<H3>Состояние поединка: </H3> <%= @fight.fight_state.name %>
+<H3>Время поединка: </H3> <%= @fight.fight_time %>
+<table>
+  <tr>
+    <th></th>
+    <th>Белый</th>
+    <th>Красный</th>
+  </tr>
+  <tr>
+    <td>
+      Участник
+    </td>
+    <td>
+      <%= link_to @fight.white_person.last_name.to_s+' '+' '+@fight.white_person.first_name.to_s+' '+' '+@fight.white_person.middle_name.to_s,
+                  '/person/'+@fight.white_person.id.to_s %>
+    </td>
+    <td>
+      <%= link_to @fight.red_person.last_name.to_s+' '+' '+@fight.red_person.first_name.to_s+' '+' '+@fight.red_person.middle_name.to_s,
+                  '/person/'+@fight.red_person.id.to_s %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Счет
+    </td>
+    <td>
+      <%= @fight.white_hits%>
+    </td>
+    <td>
+      <%= @fight.red_hits%>
+    </td>
+  </tr>
+</table>
+<%= link_to 'Редактировать', '/fight/edit/'+@fight.id.to_s%>

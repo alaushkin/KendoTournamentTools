@@ -9,12 +9,12 @@
       <tr>
         <td>
           <% if !fight.white_person.nil? %>
-              <%= link_to fight.white_person.last_name.to_s+' '+fight.white_person.first_name.to_s+' '+fight.white_person.middle_name.to_s %>
+              <%= link_to fight.white_person.last_name.to_s+' '+fight.white_person.first_name.to_s+' '+fight.white_person.middle_name.to_s, '/fight/'+fight.id.to_s %>
           <% end %>
         </td>
         <td>
           <% if !fight.red_person.nil? %>
-              <%= link_to fight.red_person.last_name.to_s+' '+fight.red_person.first_name.to_s+' '+fight.red_person.middle_name.to_s %>
+              <%= link_to fight.red_person.last_name.to_s+' '+fight.red_person.first_name.to_s+' '+fight.red_person.middle_name.to_s, '/fight/'+fight.id.to_s %>
           <% end %></td>
         <td>
           <% if !fight.winner_id.nil? %>

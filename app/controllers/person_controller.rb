@@ -59,8 +59,8 @@ class PersonController < ApplicationController
     if !check_user
       return
     end
-    record = Person.find(person_params[:id])
-    r = record.update person_params
+    person = Person.find(person_params[:id])
+    r = person.update person_params
     if r == true
       redirect_to '/person/'+person.id.to_s
     else

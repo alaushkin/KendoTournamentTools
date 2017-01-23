@@ -1,0 +1,37 @@
+<%= form_for :fight, :url => url_for(:controller => 'fight', :action => 'update') do |f| %>
+    <H3>Состояние
+      поединка: </H3> <%= f.select :fight_state_id, FightState.all.collect { |p| [p.name, p.id] }, value: @fight.fight_state %>
+    <H3>Время поединка: </H3> <%= f.text_field :fight_time, value: @fight.fight_time %>
+    <table>
+      <tr>
+        <th></th>
+        <th>Белый</th>
+        <th>Красный</th>
+      </tr>
+      <tr>
+        <td>
+          Участник
+        </td>
+        <td>
+          <%= f.select :white_person_id, @persons.collect { |p| [p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.id] },
+                       value: @fight.white_person %>
+        </td>
+        <td>
+          <%= f.select :red_person_id, @persons.collect { |p| [p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.id] },
+                       value: @fight.red_person %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          Счет
+        </td>
+        <td>
+          <%= f.text_field :white_hits, value: @fight.white_hits %>
+        </td>
+        <td>
+          <%= f.text_field :red_hits, value: @fight.red_hits %>
+        </td>
+      </tr>
+    </table>
+    <%= f.hidden_field :id, value:@fight.id %>
+<% end %>
