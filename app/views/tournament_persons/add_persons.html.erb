@@ -1,6 +1,6 @@
 <%= form_for :tournament_persons, :url => url_for(:controller => 'tournament_person', :action => 'add_persons') do |f| %>
     <ul>
-      <%= f.collection_check_boxes :persons, Person.all, :id, :last_name do |b|%>
+      <%= f.collection_check_boxes :persons, Person.all.order('last_name asc, first_name asc, middle_name asc'), :id, :last_name do |b|%>
           <li><%= b.check_box %> <%= b.object.last_name.to_s+' '+b.object.first_name.to_s+b.object.middle_name.to_s %></li>
       <% end %>
     </ul>

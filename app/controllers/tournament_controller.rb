@@ -16,6 +16,7 @@ class TournamentController < ApplicationController
   def details_view
     @tournament = Tournament.find(params[:id])
     @persons_count = TournamentPerson.where(:tournament_id => @tournament.id).count
+    @has_grid = Fight.where('tournament_id = ? and tournament_pool_id is null', @tournament.id).count >0
     render 'tournaments/details.html.erb'
   end
 

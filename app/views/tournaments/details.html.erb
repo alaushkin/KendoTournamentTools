@@ -32,3 +32,8 @@
 <% else %>
     <h4><%= link_to 'Список пулов', '/tournament-pool/'+@tournament.id.to_s+'/list' %></h4>
 <% end %>
+<% if !@has_grid %>
+    <h4><%= link_to 'Генерировать турнирную сетку', '/rest/fight/generate-grid?tournament_id='+@tournament.id.to_s, method: 'post'  %></h4>
+<% else %>
+    <h4><%= link_to 'Турнирная сетка', '/fight/grid?tournament_id='+@tournament.id.to_s %></h4>
+<% end %>

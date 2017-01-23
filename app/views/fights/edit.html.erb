@@ -13,11 +13,11 @@
           Участник
         </td>
         <td>
-          <%= f.select :white_person_id, @persons.collect { |p| [p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.id] },
+          <%= f.select :white_person_id, @persons.collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] },
                        value: @fight.white_person %>
         </td>
         <td>
-          <%= f.select :red_person_id, @persons.collect { |p| [p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.id] },
+          <%= f.select :red_person_id, @persons.collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] },
                        value: @fight.red_person %>
         </td>
       </tr>
@@ -33,5 +33,8 @@
         </td>
       </tr>
     </table>
-    <%= f.hidden_field :id, value:@fight.id %>
+    <H4>Победитель: </H4>
+    <%= f.select :winner_id, [nil, @fight.white_person, @fight.red_person].collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] }%>
+    <%= f.hidden_field :id, value: @fight.id %>
+    <%= f.submit 'Сохранить' %>
 <% end %>

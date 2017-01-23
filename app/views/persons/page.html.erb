@@ -8,6 +8,7 @@
     <th>Пол</th>
     <th>Телефон</th>
     <th>Email</th>
+    <th></th>
   </tr>
   <% @page.each do |person| %>
       <tr>
@@ -23,6 +24,7 @@
         <% end %>
         <td><%= person.phone %></td>
         <td><%= person.email %></td>
+        <td><%= link_to 'Удалить из турнира', '/rest/tournament-person/remove_person?person_id='+person.id.to_s+'&tournament_id='+@tournament_id.to_s%></td>
       </tr>
   <% end %>
   <tr>

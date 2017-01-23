@@ -34,7 +34,7 @@ class PersonController < ApplicationController
   ##API
 
   def findAll
-    render json: Person.all
+    render json: Person.all.order('last_name asc, first_name asc, middle_name asc')
   end
 
   def details

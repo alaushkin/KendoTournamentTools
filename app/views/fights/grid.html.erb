@@ -1,0 +1,29 @@
+<% def grid(fight) %>
+    <li>
+      <% if !fight.white_person.nil? %>
+          <%= fight.white_person.last_name.to_s+' '+' '+fight.white_person.first_name.to_s+' '+' '+fight.white_person.middle_name.to_s %>
+      <% end %>
+    </li>
+    <li>
+      <% if !fight.red_person_id.nil? %>
+          <%= fight.red_person.last_name.to_s+' '+' '+fight.red_person.first_name.to_s+' '+' '+fight.red_person.middle_name.to_s %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'Детали', '/fight/'+fight.id.to_s %>
+    </li>
+    <% fight.childs.each do |child| %>
+        <ol>
+          <% grid(child) %>
+        </ol>
+    <% end %>
+<% end %>
+<table>
+<ol>
+  <tr>
+    <td>
+  <% grid(@final) %>
+    </td>
+  </tr>
+</ol>
+</table>

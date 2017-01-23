@@ -43,17 +43,20 @@
           <%= f.date_select :end_date %>
         </td>
       </tr>
-      <%= f.submit 'Добавить' %>
-  <% end %>
-  <%= form_for :file, :url => url_for(:controller => 'upload', :action => 'upload_image'), :html => {:multipart => true, :id => "logo"} do |f|%>
       <tr>
-        <td>Логотип</td>
-        <td>
-          <img id="logo" />
-          <%= f.file_field :data, accept: 'image/png,image/gif,image/jpeg' %>
-          <%= f.submit %>
+        <td colspan="2">
+          <%= f.submit 'Добавить' %>
         </td>
       </tr>
   <% end %>
+  <!--<%= form_for :file, :url => url_for(:controller => 'upload', :action => 'upload_image'), :html => {:multipart => true, :id => "logo"} do |f| %>-->
+      <!--<tr>-->
+        <!--<td>Логотип</td>-->
+        <!--<td>-->
+          <!--<img id="logo"/>-->
+          <!--<%= f.file_field :data, accept: 'image/png,image/gif,image/jpeg' %>-->
+          <!--<%= f.submit %>-->
+        <!--</td>-->
+      <!--</tr>-->
+  <!--<% end %>-->
 </table>
-<img src="/rest/store?file_name=1a9133d0-bed8-0134-6a71-448a5b428a5b.gif" height="100px", width="100px"/>

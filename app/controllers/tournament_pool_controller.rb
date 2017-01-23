@@ -83,6 +83,7 @@ class TournamentPoolController < ApplicationController
             fight.tournament_id = params[:pool][:tournament_id]
             fight.white_person_id = white.id
             fight.red_person_id = red.id
+            fight.fight_state_id=1
             fight.save
             fights.append fight
           end
