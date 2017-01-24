@@ -5,6 +5,8 @@ class TournamentPersonController < ApplicationController
       return
     end
     @tournament_id = params[:tournament_id]
+    @persons = Person.all.order('last_name asc, first_name asc, middle_name asc')
+    @links = [{:name => 'Завести нового', :link => '/person/new'}]
     render 'tournament_persons/add_persons'
   end
 
@@ -33,7 +35,8 @@ class TournamentPersonController < ApplicationController
       end
     end
     if !errors.empty?
-      render json: errors
+      @message = errors
+      render 'errors/error'
     else
       redirect_to '/tournament/'+tournament_persons[:tournament_id].to_s
     end

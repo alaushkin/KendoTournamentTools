@@ -7,11 +7,18 @@ class PersonController < ApplicationController
                 .references(:tournament_persons)
                 .order('last_name asc, first_name asc, middle_name asc')
                 .paginate(:page => params[:num], :per_page => params[:per_page])
+    @links = [
+        {:name => 'Добавить участников', :link => '/tournament-person/add_persons?tournament_id='+@tournament_id.to_s},
+        {:name => 'Импорт участников', :link => '/tournament-person/import?tournament_id='+@tournament_id.to_s}
+    ]
     render 'persons/page'
   end
 
   def details_view
     @person = Person.find(params[:id])
+    @links = [
+        {:name => 'Редактировать', :link => 'edit/'+@person.id.to_s}
+    ]
     render 'persons/details'
   end
 

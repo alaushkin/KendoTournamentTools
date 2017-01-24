@@ -15,7 +15,7 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.remotipart
-
+//= require bootstrap-sprockets
 
 $('#avatar').fileupload({
 

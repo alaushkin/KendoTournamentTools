@@ -7,7 +7,6 @@ class TournamentPoolController < ApplicationController
       return
     end
     @tournament_id = params[:tournament_id]
-    p @tournament_id
     render 'tournament_pools/generate'
   end
 
@@ -95,11 +94,16 @@ class TournamentPoolController < ApplicationController
 
   def pool_list_view
     @pools = TournamentPool.where(:tournament_id => params[:tournament_id])
+    @links = [ {:name => 'К турниру', :link => '/tournament/'+params[:tournament_id].to_s} ]
     render 'tournament_pools/pool_list'
   end
 
   def details_view
     @pool = TournamentPool.find(params[:pool_id])
+    @links = [
+        {:name => 'К турниру', :link => '/tournament/'+@pool.tournament_id.to_s},
+        {:name => 'К списку пулов', :link => '/tournament-pool/'+@pool.tournament_id.to_s+'/list'}
+    ]
     render 'tournament_pools/details'
   end
 

@@ -1,9 +1,36 @@
-<% if @page.current_page > 1 %>
-    <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s %>
-<% end %>
-<%= @page.current_page %>
-/
-<%= @page.total_pages %>
-<% if @page.current_page < @page.total_pages %>
-    <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s %>
-<% end %>
+<% page_links_count = 9 %>
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li>
+      <% if @page.current_page > 1 %>
+          <%= link_to'<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s %>
+      <% else %>
+          <span><<</span>
+      <% end %>
+    </li>
+    <% start_page = @page.current_page - page_links_count/2 %>
+    <% end_page = @page.current_page + page_links_count/2 %>
+    <% if start_page<1 %>
+        <% start_page=1 %>
+    <% end %>
+    <% if end_page>@page.total_pages %>
+        <% end_page=@page.total_pages %>
+    <% end %>
+    <% for i in start_page...end_page+1 do %>
+        <li>
+          <% if i==@page.current_page %>
+              <span><%= i.to_s %></span>
+          <% else %>
+              <%= link_to i.to_s, 'page?num='+i.to_s+'&per_page='+@page.per_page.to_s %>
+          <% end %>
+        </li>
+    <% end %>
+    <li>
+      <% if @page.current_page < @page.total_pages %>
+          <%= link_to'>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s %>
+      <% else %>
+          <span>>></span>
+      <% end %>
+    </li>
+  </ul>
+</nav>

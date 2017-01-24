@@ -1,53 +1,83 @@
-<% if @fight.fight_state.id == 3 %>
-    <H3>Победитель: </H3>
-    <% if @fight.winner_id.nil? %>
-        Хикиваге
-    <% else %>
-        <% if @fight.winner_id == @fight.white_person_id %>
-            Белый
-        <% else %>
-            Красный
-        <% end %>
-    <% end %>
-<% end %>
-<H3>Состояние поединка: </H3> <%= @fight.fight_state.name %>
-<H3>Время поединка: </H3> <%= @fight.fight_time %>
-<table>
-  <tr>
-    <th></th>
-    <th>Белый</th>
-    <th>Красный</th>
-  </tr>
-  <tr>
-    <td>
-      Участник
-    </td>
-    <td>
-      <% if !@fight.white_person.nil? %>
-          <%= link_to @fight.white_person.last_name.to_s+' '+' '+@fight.white_person.first_name.to_s+' '+' '+@fight.white_person.middle_name.to_s,
-                      '/person/'+@fight.white_person.id.to_s %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Информация о поединке</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <% if @fight.fight_state.id == 3 %>
+          <H2>Победитель:
+            <small>
+              <% if @fight.winner_id.nil? %>
+                  Хикиваге
+              <% else %>
+                  <% if @fight.winner_id == @fight.white_person_id %>
+                      Белый
+                  <% else %>
+                      Красный
+                  <% end %>
+              <% end %>
+            </small>
+          </H2>
       <% end %>
-    </td>
-    <td>
-      <% if !@fight.red_person.nil? %>
-          <%= link_to @fight.red_person.last_name.to_s+' '+' '+@fight.red_person.first_name.to_s+' '+' '+@fight.red_person.middle_name.to_s,
-                      '/person/'+@fight.red_person.id.to_s %>
-      <% end %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      Счет
-    </td>
-    <td>
-      <%= @fight.white_hits %>
-    </td>
-    <td>
-      <%= @fight.red_hits %>
-    </td>
-  </tr>
-</table>
-<%= link_to 'Редактировать', '/fight/edit/'+@fight.id.to_s %>
-<% if !@fight.tournament_pool_id.nil? %>
-    <%= link_to 'К пулу', '/tournament-pool/'+@fight.tournament_pool_id.to_s %>
-<% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <H3>Состояние поединка:
+        <small><%= @fight.fight_state.name %></small>
+      </H3>
+      <H3>Время поединка:
+        <small> <%= @fight.fight_time %></small>
+      </H3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <table class="table">
+        <tr>
+          <th></th>
+          <th>Белый</th>
+          <th>Красный</th>
+        </tr>
+        <tr>
+          <td>
+            Участник
+          </td>
+          <td>
+            <% if !@fight.white_person.nil? %>
+                <%= link_to @fight.white_person.last_name.to_s+' '+' '+@fight.white_person.first_name.to_s+' '+' '+@fight.white_person.middle_name.to_s,
+                            '/person/'+@fight.white_person.id.to_s %>
+            <% end %>
+          </td>
+          <td>
+            <% if !@fight.red_person.nil? %>
+                <%= link_to @fight.red_person.last_name.to_s+' '+' '+@fight.red_person.first_name.to_s+' '+' '+@fight.red_person.middle_name.to_s,
+                            '/person/'+@fight.red_person.id.to_s %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Счет
+          </td>
+          <td>
+            <%= @fight.white_hits %>
+          </td>
+          <td>
+            <%= @fight.red_hits %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>
+
+
+

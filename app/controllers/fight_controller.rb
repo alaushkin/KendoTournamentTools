@@ -1,6 +1,13 @@
 class FightController < ApplicationController
   def details_view
     @fight = Fight.find(params[:fight_id])
+    @links = [
+        {:name => 'Редактировать', :link => '/fight/edit/'+@fight.id.to_s},
+        {:name => 'К турниру', :link => '/tournament/'+@fight.tournament_id.to_s}
+    ]
+    if !@fight.tournament_pool_id.nil?
+      @links.append({:name => 'К пулу', :link => '/tournament-pool/'+@fight.tournament_pool_id.to_s})
+    end
     render 'fights/details'
   end
 

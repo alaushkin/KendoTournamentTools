@@ -1,45 +1,59 @@
-<table>
-  <tr>
-    <th>ФИО</th>
-    <th>Год рождения</th>
-    <th>Уровень</th>
-    <th>Клуб</th>
-    <th>Рейтинг</th>
-    <th>Пол</th>
-    <th>Телефон</th>
-    <th>Email</th>
-    <th></th>
-  </tr>
-  <% @page.each do |person| %>
-      <tr>
-        <td><%= link_to person.last_name.to_s+' '+person.first_name.to_s+' '+person.middle_name.to_s, person.id.to_s  %></td>
-        <td><%= person.birth_date %></td>
-        <td><%= person.level.name %></td>
-        <td><%= person.club.name %></td>
-        <td><%= person.rank %></td>
-        <% if person.sex %>
-          <td>М</td>
-        <% else %>
-          <td>Ж</td>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <H1>Список участников</H1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <table class="table">
+        <tr>
+          <th>ФИО</th>
+          <th>Год рождения</th>
+          <th>Уровень</th>
+          <th>Клуб</th>
+          <th>Рейтинг</th>
+          <th>Пол</th>
+          <th>Телефон</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+        <% @page.each do |person| %>
+            <tr>
+              <td><%= link_to person.last_name.to_s+' '+person.first_name.to_s+' '+person.middle_name.to_s, person.id.to_s  %></td>
+              <td><%= person.birth_date %></td>
+              <td><%= person.level.name %></td>
+              <td><%= person.club.name %></td>
+              <td><%= person.rank %></td>
+              <% if person.sex %>
+                  <td>М</td>
+              <% else %>
+                  <td>Ж</td>
+              <% end %>
+              <td><%= person.phone %></td>
+              <td><%= person.email %></td>
+              <td><%= link_to 'Удалить из турнира', '/rest/tournament-person/remove_person?person_id='+person.id.to_s+'&tournament_id='+@tournament_id.to_s%></td>
+            </tr>
         <% end %>
-        <td><%= person.phone %></td>
-        <td><%= person.email %></td>
-        <td><%= link_to 'Удалить из турнира', '/rest/tournament-person/remove_person?person_id='+person.id.to_s+'&tournament_id='+@tournament_id.to_s%></td>
-      </tr>
-  <% end %>
-  <tr>
-    <td>
-      <% if @page.current_page > 1 %>
-          <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
-      <% end %>
-      <%= @page.current_page %>
-      /
-      <%= @page.total_pages %>
-      <% if @page.current_page < @page.total_pages %>
-          <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
-      <% end %>
-    </td>
-  </tr>
-</table>
-<h2><%= link_to 'Добавить участников', '/tournament-person/add_persons?tournament_id='+@tournament_id.to_s %></h2>
-<h2><%= link_to 'Импорт участников', '/tournament-person/import?tournament_id='+@tournament_id.to_s %></h2>
+        <tr>
+          <td>
+            <% if @page.current_page > 1 %>
+                <%= link_to '<<', 'page?num='+(@page.current_page-1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
+            <% end %>
+            <%= @page.current_page %>
+            /
+            <%= @page.total_pages %>
+            <% if @page.current_page < @page.total_pages %>
+                <%= link_to '>>', 'page?num='+(@page.current_page+1).to_s+'&per_page='+@page.per_page.to_s+'&tournament_id='+@tournament_id.to_s %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>

@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TournamentTools</title>
-    <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-  <body>
-    <div align="right">
-      <%= render partial: 'layouts/user_pane' %>
-    </div>
-    <div align="center">
-      <%= render partial: 'layouts/menu' %>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+<head>
+  <title>TournamentTools</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+<style>
+  .body-background {
+    background: url('http://kasugai.ru/images/uploads/originals/103/stil-4.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+</style>
+<body>
+<%= render partial: 'layouts/header' %>
+<%= render partial: 'layouts/menu' %>
+<div class="container" style="background-color: white">
+  <div class="row">
+    <div class="col-md-11">
       <%= yield %>
     </div>
-  </body>
+  </div>
+</div>
+</body>
 </html>

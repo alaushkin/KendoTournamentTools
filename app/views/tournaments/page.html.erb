@@ -1,24 +1,39 @@
-<table>
-  <tr>
-    <th>Название</th>
-    <th>Тип</th>
-    <th>Статус</th>
-    <th>Начало</th>
-    <th>Завершение</th>
-  </tr>
-  <% @page.each do |tournament| %>
-    <tr>
-      <td><%= link_to tournament.short_name.to_s, tournament.id.to_s %></td>
-      <td><%= tournament.tournament_type.name %></td>
-      <td><%= tournament.status.name %></td>
-      <td><%= tournament.start_date %></td>
-      <td><%= tournament.end_date %></td>
-    </tr>
-  <% end %>
-  <tr>
-    <td>
-      <%= render partial: 'layouts/paging', locals: { page: @page } %>
-    </td>
-  </tr>
-</table>
-<h2><%= link_to 'Добавить турнир', 'new'%></h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <H1>Список турниров</H1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <table class="table">
+        <tr>
+          <th>Название</th>
+          <th>Тип</th>
+          <th>Статус</th>
+          <th>Начало</th>
+          <th>Завершение</th>
+        </tr>
+        <% @page.each do |tournament| %>
+            <tr>
+              <td><%= link_to tournament.short_name.to_s, tournament.id.to_s %></td>
+              <td><%= tournament.tournament_type.name %></td>
+              <td><%= tournament.status.name %></td>
+              <td><%= tournament.start_date %></td>
+              <td><%= tournament.end_date %></td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/paging', locals: {page: @page} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>

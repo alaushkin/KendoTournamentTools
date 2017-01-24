@@ -1,62 +1,41 @@
-<table>
-  <%= form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'save') do |f| %>
-      <tr>
-        <td>Название</td>
-        <td>
-          <%= f.text_field :full_name %>
-        </td>
-      </tr>
-      <tr>
-        <td>Короткое название</td>
-        <td>
-          <%= f.text_field :short_name %>
-        </td>
-      </tr>
-      <tr>
-        <td>Место проведения</td>
-        <td>
-          <%= f.text_field :place %>
-        </td>
-      </tr>
-      <tr>
-        <td>Тип турнира</td>
-        <td>
-          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [p.name, p.id] } %>
-        </td>
-      </tr>
-      <tr>
-        <td>Статус турнира</td>
-        <td>
-          <%= f.select :status_id, Status.all.collect { |p| [p.name, p.id] } %>
-        </td>
-      </tr>
-      <tr>
-        <td>Дата начала</td>
-        <td>
-          <div id="results"></div>
-          <%= f.date_select :start_date %>
-        </td>
-      </tr>
-      <tr>
-        <td>Дата окончания</td>
-        <td>
-          <%= f.date_select :end_date %>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Новый турнир</h1>
+    </div>
+  </div>
+  <%= bootstrap_form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'save') do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :full_name, label: 'Название' %>
+          <%= f.text_field :short_name, label: 'Название сокращенно' %>
+          <%= f.text_field :place, label: 'Место проведения' %>
+          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [p.name, p.id] }, label: 'Тип турнира' %>
+          <%= f.select :status_id, Status.all.collect { |p| [p.name, p.id] }, label: 'Статус турнира' %>
+          <%= f.datetime_select :start_date, label: 'Дата начала' %>
+          <%= f.datetime_select :end_date, label: 'Дата окончания' %>
+        </div>
+        <div class="col-md-5">
+          <%= f.text_area :description, label: 'Описание', rows: 10 %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
           <%= f.submit 'Добавить' %>
-        </td>
-      </tr>
+        </div>
+      </div>
   <% end %>
-  <!--<%= form_for :file, :url => url_for(:controller => 'upload', :action => 'upload_image'), :html => {:multipart => true, :id => "logo"} do |f| %>-->
-      <!--<tr>-->
-        <!--<td>Логотип</td>-->
-        <!--<td>-->
-          <!--<img id="logo"/>-->
-          <!--<%= f.file_field :data, accept: 'image/png,image/gif,image/jpeg' %>-->
-          <!--<%= f.submit %>-->
-        <!--</td>-->
-      <!--</tr>-->
-  <!--<% end %>-->
-</table>
+</div>
+
+
+<!--<%= form_for :file, :url => url_for(:controller => 'upload', :action => 'upload_image'), :html => {:multipart => true, :id => "logo"} do |f| %>-->
+    <!--<tr>-->
+    <!--<td>Логотип</td>-->
+    <!--<td>-->
+    <!--<img id="logo"/>-->
+    <!--<%= f.file_field :data, accept: 'image/png,image/gif,image/jpeg' %>-->
+    <!--<%= f.submit %>-->
+    <!--</td>-->
+    <!--</tr>-->
+    <!--
+<% end %>-->

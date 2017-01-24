@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.datetime "start_date",                      null: false
     t.string   "image_link",         limit: 1024
     t.string   "place",              limit: 1024
+    t.text     "description"
     t.index ["status_id"], name: "tournaments_status_id_394b6e5b_uniq", using: :btree
     t.index ["tournament_type_id"], name: "tournaments_94757cae", using: :btree
   end

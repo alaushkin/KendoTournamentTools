@@ -1,49 +1,29 @@
-<%= form_for :person, :url => url_for(:controller => 'person', :action => 'update') do |f| %>
-  <table>
-    <tr>
-      <td>Фамилия</td>
-      <td><%= f.text_field :last_name, value:@person.last_name %></td>
-    </tr>
-    <tr>
-      <td>Имя</td>
-      <td><%= f.text_field :first_name, value:@person.first_name %></td>
-    </tr>
-    <tr>
-      <td>Отчество</td>
-      <td><%= f.text_field :middle_name, value:@person.middle_name %></td>
-    </tr>
-    <tr>
-      <td>Дата рождения</td>
-      <td><%= f.date_select :birth_date, value:@person.birth_date %></td>
-    </tr>
-    <tr>
-      <td>Уровень</td>
-      <td><%= f.select :level_id, Level.all.collect { |p| [ p.name, p.id ] }, value:@person.level %></td>
-    </tr>
-    <tr>
-      <td>Клуб</td>
-      <td><%= f.select :club_id, Club.all.collect { |p| [ p.name, p.id ] }, value:@person.club %></td>
-    </tr>
-    <tr>
-      <td>Рейтинг</td>
-      <td><%= f.text_field :rank, value:@person.rank %></td>
-    </tr>
-    <tr>
-      <td>Пол</td>
-      <td>
-        <%= f.select :sex, [['М', true], ['Ж', false]], value:@person.sex %>
-      </td>
-    </tr>
-    <tr>
-      <td>Телефон</td>
-      <td><%= f.text_field :phone, value:@person.phone %></td>
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td><%= f.text_field :email, value:@person.email %></td>
-    </tr>
-  </table>
-  <%= f.hidden_field :id, value:@person.id %>
-  <%= f.submit 'Сохранить' %>
-<% end %>
-<%= render partial: 'layouts/menu' %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Редактирование данных участника</h1>
+    </div>
+  </div>
+  <%= bootstrap_form_for :person, :url => url_for(:controller => 'person', :action => 'update') do |f| %>
+      <div class="row">
+        <div class="col-md-11">
+          <%= f.text_field :last_name, value: @person.last_name, label: 'Фамилия' %>
+          <%= f.text_field :first_name, value: @person.first_name, label: 'Имя' %>
+          <%= f.text_field :middle_name, value: @person.middle_name, label: 'Отчество' %>
+          <%= f.date_select :birth_date, value: @person.birth_date, label: 'Дата рождения' %>
+          <%= f.select :level_id, Level.all.collect { |p| [p.name, p.id] }, value: @person.level, label: 'Уровень' %>
+          <%= f.select :club_id, Club.all.collect { |p| [p.name, p.id] }, value: @person.club, label: 'Клуб' %>
+          <%= f.text_field :rank, value: @person.rank, label: 'Рейтинг' %>
+          <%= f.select :sex, [['М', true], ['Ж', false]], value: @person.sex, label: 'Пол' %>
+          <%= f.text_field :phone, value: @person.phone, label: 'Телефон' %>
+          <%= f.text_field :email, value: @person.email, label: 'Email' %>
+          <%= f.hidden_field :id, value: @person.id %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
+          <%= f.submit 'Сохранить' %>
+        </div>
+      </div>
+  <% end %>
+</div>
