@@ -7,11 +7,18 @@ class PersonController < ApplicationController
                 .references(:tournament_persons)
                 .order('last_name asc, first_name asc, middle_name asc')
                 .paginate(:page => params[:num], :per_page => params[:per_page])
+    @links = [
+        {:name => 'Добавить участников', :link => '/tournament-person/add_persons?tournament_id='+@tournament_id.to_s},
+        {:name => 'Импорт участников', :link => '/tournament-person/import?tournament_id='+@tournament_id.to_s}
+    ]
     render 'persons/page'
   end
 
   def details_view
     @person = Person.find(params[:id])
+    @links = [
+        {:name => 'Редактировать', :link => 'edit/'+@person.id.to_s}
+    ]
     render 'persons/details'
   end
 
@@ -34,7 +41,7 @@ class PersonController < ApplicationController
   ##API
 
   def findAll
-    render json: Person.all
+    render json: Person.all.order('last_name asc, first_name asc, middle_name asc')
   end
 
   def details
@@ -59,8 +66,8 @@ class PersonController < ApplicationController
     if !check_user
       return
     end
-    record = Person.find(person_params[:id])
-    r = record.update person_params
+    person = Person.find(person_params[:id])
+    r = person.update person_params
     if r == true
       redirect_to '/person/'+person.id.to_s
     else

@@ -1,10 +1,24 @@
-<%= form_for :tournament_persons, :url => url_for(:controller => 'tournament_person', :action => 'add_persons') do |f| %>
-    <ul>
-      <%= f.collection_check_boxes :persons, Person.all, :id, :last_name do |b|%>
-          <li><%= b.check_box %> <%= b.object.last_name.to_s+' '+b.object.first_name.to_s+b.object.middle_name.to_s %></li>
-      <% end %>
-    </ul>
-    <%= f.hidden_field :tournament_id, value: @tournament_id %>
-    <%= f.submit 'Добавить' %>
-<% end %>
-<h2><%= link_to 'Завести нового', '/person/new'%></h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+    </div>
+  </div>
+  <%= bootstrap_form_for :tournament_persons, :url => url_for(:controller => 'tournament_person', :action => 'add_persons') do |f| %>
+      <div class="row">
+        <div class="col-md-11">
+          <%= f.collection_check_boxes :persons, @persons, :id, :fio, :style => "width:100px;", :inline => true, label: '-' %>
+          <%= f.hidden_field :tournament_id, value: @tournament_id %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
+          <%= f.submit 'Добавить' %>
+        </div>
+      </div>
+  <% end %>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>

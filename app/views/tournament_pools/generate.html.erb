@@ -1,5 +1,20 @@
-<%= form_for :pool, :url => url_for(:controller => 'tournament_pool',:action => 'generate')  do |f|%>
-  <%= text_field :count, value:0 %>
-  <%= hidden_field :tournament_id, value:@tournament_id %>
-  <%= f.submit 'Генерировать' %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Генерировать пулы</h1>
+    </div>
+  </div>
+  <%= bootstrap_form_for :pool, :url => url_for(:controller => 'tournament_pool', :action => 'generate') do |f| %>
+      <div class="row">
+        <div class="col-md-11">
+          <%= f.text_field :count, value: 4, label:'Количество пулов' %>
+          <%= f.hidden_field :tournament_id, value: @tournament_id %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
+          <%= f.submit 'Генерировать' %>
+        </div>
+      </div>
+  <% end %>
+</div>

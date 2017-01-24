@@ -9,13 +9,32 @@ class TournamentController < ApplicationController
       filter[:tournament_type_id] = params[:tournament_type_id]
     end
     @page = Tournament.where(filter).order("start_date desc")
-            .paginate(:page => params[:num], :per_page => params[:per_page])
+                .paginate(:page => params[:num], :per_page => params[:per_page])
+    @links = []
+    if user_signed_in? && (current_user.has_role? :admin)
+      @links.append({:name => 'Добавить турнир', :link => 'new'})
+    end
     render 'tournaments/page.html.erb'
   end
 
   def details_view
     @tournament = Tournament.find(params[:id])
     @persons_count = TournamentPerson.where(:tournament_id => @tournament.id).count
+    @has_grid = Fight.where('tournament_id = ? and tournament_pool_id is null', @tournament.id).count >0
+    @links = [
+        {:name => 'Редактировать', :link => 'edit/'+@tournament.id.to_s},
+        {:name => 'Список участников', :link => '/person/page?num=1&per_page=10&tournament_id='+@tournament.id.to_s}
+    ]
+    if @tournament.tournament_pools.count==0
+      @links.append({:name => 'Генерировать пулы', :link => '/tournament-pool/generate?tournament_id='+@tournament.id.to_s})
+    else
+      @links.append({:name => 'Список пулов', :link => '/tournament-pool/'+@tournament.id.to_s+'/list'})
+    end
+    if !@has_grid
+      @links.append({:name => 'Генерировать турнирную сетку', :link => '/rest/fight/generate-grid?tournament_id='+@tournament.id.to_s, :method => 'post'})
+    else
+      @links.append({:name => 'Турнирная сетка', :link => '/fight/grid?tournament_id='+@tournament.id.to_s})
+    end
     render 'tournaments/details.html.erb'
   end
 
@@ -34,7 +53,7 @@ class TournamentController < ApplicationController
     render 'tournaments/edit.html.erb'
   end
 
-  ## API
+## API
 
   def page
     filter = {}
@@ -84,6 +103,7 @@ class TournamentController < ApplicationController
   end
 
   def tournament_params
-    params.require(:tournament).permit(:id, :full_name, :short_name, :status_id, :tournament_type_id, :end_date, :start_date, :place)
+    params.require(:tournament).permit(:id, :full_name, :short_name, :status_id, :tournament_type_id, :end_date, :start_date, :place, :description)
   end
+
 end

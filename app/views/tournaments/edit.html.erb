@@ -1,48 +1,29 @@
-<%= form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'update') do |f| %>
-    <table>
-      <tr>
-        <td>Название</td>
-        <td>
-          <%= f.text_field :full_name, value:@tournament.full_name %>
-        </td>
-      </tr>
-      <tr>
-        <td>Короткое название</td>
-        <td>
-          <%= f.text_field :short_name, value:@tournament.short_name %>
-        </td>
-      </tr>
-      <tr>
-        <td>Место проведения</td>
-        <td>
-          <%= f.text_field :place, value:@tournament.place %>
-        </td>
-      </tr>
-      <tr>
-        <td>Тип турнира</td>
-        <td>
-          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [ p.name, p.id ] }, value:@tournament.tournament_type %>
-        </td>
-      </tr>
-      <tr>
-        <td>Статус турнира</td>
-        <td>
-          <%= f.select :status_id, Status.all.collect { |p| [ p.name, p.id ] }, value:@tournament.status %>
-        </td>
-      </tr>
-      <tr>
-        <td>Дата начала</td>
-        <td>
-          <%= f.date_select :start_date, value:@tournament.start_date %>
-        </td>
-      </tr>
-      <tr>
-        <td>Дата окончания</td>
-        <td>
-          <%= f.date_select :end_date, value:@tournament.end_date %>
-        </td>
-      </tr>
-    </table>
-    <%= f.hidden_field :tournament_person, value:{:tournament_id => @tournament.id} %>
-    <%= f.submit "Сохранить" %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Редактирование турнира</h1>
+    </div>
+  </div>
+  <%= bootstrap_form_for :tournament, :url => url_for(:controller => 'tournament', :action => 'update') do |f| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.text_field :full_name, label: 'Название', value:@tournament.full_name %>
+          <%= f.text_field :short_name, label: 'Название сокращенно', value:@tournament.full_name  %>
+          <%= f.text_field :place, label: 'Место проведения', value:@tournament.place %>
+          <%= f.select :tournament_type_id, TournamentType.all.collect { |p| [p.name, p.id] }, label: 'Тип турнира', value:@tournament.tournament_type %>
+          <%= f.select :status_id, Status.all.collect { |p| [p.name, p.id] }, label: 'Статус турнира', value:@tournament.status %>
+          <%= f.datetime_select :start_date, label: 'Дата начала', value:@tournament.start_date %>
+          <%= f.datetime_select :end_date, label: 'Дата окончания', value:@tournament.end_date %>
+          <%= f.hidden_field :id, value:@tournament.id %>
+        </div>
+        <div class="col-md-5">
+          <%= f.text_area :description, label: 'Описание', value:@tournament.description, rows: 10 %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
+          <%= f.submit 'Сохранить' %>
+        </div>
+      </div>
+  <% end %>
+</div>

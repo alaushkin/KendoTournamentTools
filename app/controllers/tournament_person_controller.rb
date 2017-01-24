@@ -5,6 +5,8 @@ class TournamentPersonController < ApplicationController
       return
     end
     @tournament_id = params[:tournament_id]
+    @persons = Person.all.order('last_name asc, first_name asc, middle_name asc')
+    @links = [{:name => 'Завести нового', :link => '/person/new'}]
     render 'tournament_persons/add_persons'
   end
 
@@ -33,7 +35,8 @@ class TournamentPersonController < ApplicationController
       end
     end
     if !errors.empty?
-      render json: errors
+      @message = errors
+      render 'errors/error'
     else
       redirect_to '/tournament/'+tournament_persons[:tournament_id].to_s
     end
@@ -45,11 +48,11 @@ class TournamentPersonController < ApplicationController
     end
     record = TournamentPerson.where(:person_id => params[:person_id], :tournament_id => params[:tournament_id]).first
     TournamentPerson.destroy(record[:id])
-    render text: 'SUCCESS'
+    redirect_to '/tournament/'+params[:tournament_id].to_s
   end
 
   def persons_by_tournament
-    record = TournamentPerson.where(:tournament_id => params[:tournament_id])
+    record = TournamentPerson.where(:tournament_id => params[:tournament_id]).order('last_name asc, first_name asc, middle_name asc')
     render json: record.to_json(:include => :person)
   end
 
@@ -66,7 +69,6 @@ class TournamentPersonController < ApplicationController
   end
 
   def add_or_create(row, tournament_id)
-    p 'ZUUi' +row['last_name'].to_s
     filter = {}
     if !row['last_name'].nil?
       filter[:last_name] = row['last_name']

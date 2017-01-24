@@ -19,16 +19,22 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.text "name", null: false
   end
 
+  create_table "fight_states", force: :cascade do |t|
+    t.string "name", limit: 128
+  end
+
   create_table "fights", id: :bigint, default: -> { "nextval('fight_id_seq'::regclass)" }, force: :cascade do |t|
-    t.bigint "red_person_id"
-    t.bigint "white_person_id"
-    t.string "figth_time",         limit: 64
-    t.string "red_hits",           limit: 512
-    t.string "white_hits",         limit: 512
-    t.bigint "parent"
-    t.bigint "tournament_id"
-    t.bigint "tournament_pool_id"
-    t.bigint "winner_id"
+    t.bigint  "red_person_id"
+    t.bigint  "white_person_id"
+    t.string  "fight_time",         limit: 64
+    t.string  "red_hits",           limit: 512
+    t.string  "white_hits",         limit: 512
+    t.bigint  "parent_id"
+    t.bigint  "tournament_id"
+    t.bigint  "tournament_pool_id"
+    t.bigint  "winner_id"
+    t.integer "fight_state_id",     limit: 2
+    t.index ["fight_state_id"], name: "fki_fight_state_fk", using: :btree
     t.index ["tournament_pool_id"], name: "fki_fight_pool_id", using: :btree
   end
 
@@ -96,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.datetime "start_date",                      null: false
     t.string   "image_link",         limit: 1024
     t.string   "place",              limit: 1024
+    t.text     "description"
     t.index ["status_id"], name: "tournaments_status_id_394b6e5b_uniq", using: :btree
     t.index ["tournament_type_id"], name: "tournaments_94757cae", using: :btree
   end
@@ -123,6 +130,7 @@ ActiveRecord::Schema.define(version: 20170111131613) do
     t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
   end
 
+  add_foreign_key "fights", "fight_states", name: "fight_state_fk"
   add_foreign_key "fights", "tournament_pools", name: "fight_pool_id"
   add_foreign_key "persons", "clubs", name: "persons_club_id_45ef2623_fk_clubs_id"
   add_foreign_key "persons", "levels", name: "persons_level_id_29e16dbf_fk_levels_id"

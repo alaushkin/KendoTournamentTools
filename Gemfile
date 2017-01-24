@@ -23,6 +23,8 @@ gem 'devise'
 gem 'rolify'
 gem 'uuid'
 gem 'remotipart', '~> 1.2'
+gem 'bootstrap-sass', '~> 3.2.0'
+gem 'bootstrap_form'
 
 group :development, :test do
   gem 'byebug', platform: :mri

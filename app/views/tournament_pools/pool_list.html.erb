@@ -1,14 +1,30 @@
-<H1>Список пулов</H1>
-<table>
-  <tr>
-    <th>Название</th>
-    <th>Количество поединков</th>
-    <th>Количество завершенных поединков</th>
-  </tr>
-  <% @pools.each do |pool|%>
-    <tr>
-      <td><%= link_to pool.name, '/tournament-pool/?pool_id='+pool.tournament_id.to_s %></td>
-      <td><%= pool.fights.count %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <H1>Список пулов</H1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <table class="table">
+        <tr>
+          <th>Название</th>
+          <th>Количество поединков</th>
+          <th>Количество завершенных поединков</th>
+        </tr>
+        <% @pools.each do |pool| %>
+            <tr>
+              <td><%= link_to pool.name, '/tournament-pool/'+pool.id.to_s %></td>
+              <td><%= pool.fights.count %></td>
+              <td><%= pool.fights.select{|fight| fight.fight_state_id == 3}.count %></td>
+            </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>

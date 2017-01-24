@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Редактирование поединка</h1>
+    </div>
+  </div>
+  <%= bootstrap_form_for :fight, :url => url_for(:controller => 'fight', :action => 'update') do |f| %>
+      <div class="row">
+        <div class="col-md-11">
+          <%= f.select :fight_state_id, FightState.all.collect { |p| [p.name, p.id] }, value: @fight.fight_state, label: 'Состояние
+      поединка:' %>
+          <H3>Время поединка: </H3> <%= f.text_field :fight_time, value: @fight.fight_time, label: 'Время поединка:' %>
+          <table>
+            <tr>
+              <th></th>
+              <th>Белый</th>
+              <th>Красный</th>
+            </tr>
+            <tr>
+              <td>
+                Участник
+              </td>
+              <td>
+                <%= f.select :white_person_id, @persons.collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] },
+                             value: @fight.white_person, label:'------' %>
+              </td>
+              <td>
+                <%= f.select :red_person_id, @persons.collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] },
+                             value: @fight.red_person, label:'------' %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Счет
+              </td>
+              <td>
+                <%= f.text_field :white_hits, value: @fight.white_hits, label:'------' %>
+              </td>
+              <td>
+                <%= f.text_field :red_hits, value: @fight.red_hits, label:'------' %>
+              </td>
+            </tr>
+          </table>
+          <%= f.select :winner_id, [nil, @fight.white_person, @fight.red_person].collect { |p| [p.nil? ? '' : p.last_name.to_s+' '+p.first_name.to_s+' '+p.middle_name.to_s, p.nil? ? nil : p.id] }, label:'Победитель:' %>
+          <%= f.hidden_field :id, value: @fight.id %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-11" align="center">
+          <%= f.submit 'Сохранить' %>
+        </div>
+      </div>
+  <% end %>
+</div>

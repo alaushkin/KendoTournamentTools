@@ -31,6 +31,13 @@ Rails.application.routes.draw do
   end
   scope '/tournament-pool' do
     get '/generate' => 'tournament_pool#generate_view'
+    get '/:tournament_id/list' => 'tournament_pool#pool_list_view'
+    get '/:pool_id' => 'tournament_pool#details_view'
+  end
+  scope '/fight' do
+    get '/grid' => 'fight#grid_view'
+    get '/:fight_id' => 'fight#details_view'
+    get '/edit/:fight_id' => 'fight#edit_view'
   end
   scope '/rest' do
     scope '/tournament' do
@@ -59,9 +66,9 @@ Rails.application.routes.draw do
       get '/all' => 'tournament_type#findAll'
     end
     scope '/tournament-person' do
+      get '/remove_person' => 'tournament_person#remove_person'
       get '/:tournament_id' => 'tournament_person#persons_by_tournament'
       post '/add_persons' => 'tournament_person#add_persons'
-      get '/remove_person' => 'tournament_person#remove_person'
       post '/:tournament_id/import-persons' => 'tournament_person#import_persons'
       post '/import' => 'tournament_person#import_persons'
     end
@@ -75,6 +82,10 @@ Rails.application.routes.draw do
     end
     scope '/tournament-pool' do
       post '/generate' => 'tournament_pool#generate'
+    end
+    scope '/fight' do
+      post '/update' => 'fight#update'
+      post '/generate-grid' => 'fight#generate_grid'
     end
   end
 end

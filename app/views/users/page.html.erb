@@ -1,11 +1,30 @@
-<table>
-  <% @page.each do |user| %>
-      <%= link_to user.email, '/user/?email='+user.email %>
-      <br/>
-  <% end %>
-  <tr>
-    <td>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Зарегистрированные пользователи</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <table class="table">
+        <tr>
+          <th>
+            Email
+          </th>
+        </tr>
+      <% @page.each do |user| %>
+            <tr>
+              <td>
+                <%= link_to user.email, '/user/?email='+user.email %>
+              </td>
+            </tr>
+        <% end %>
+          </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11" align="center">
       <%= render partial: 'layouts/paging', locals: {page: @page} %>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+</div>
