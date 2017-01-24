@@ -6,7 +6,7 @@
   <%= bootstrap_form_for :tournament_persons, :url => url_for(:controller => 'tournament_person', :action => 'add_persons') do |f| %>
       <div class="row">
         <div class="col-md-11">
-          <%= f.collection_check_boxes :persons, @persons, :id, :fio, :style => "width:100px;", :inline => true, label: '-' %>
+          <%= f.collection_check_boxes :persons, @persons, :id, :fio, :inline => true, label: '--' %>
           <%= f.hidden_field :tournament_id, value: @tournament_id %>
         </div>
       </div>
