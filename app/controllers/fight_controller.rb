@@ -16,7 +16,8 @@ class FightController < ApplicationController
       return
     end
     @fight = Fight.find(params[:fight_id])
-    @persons = Person.includes(:tournament_persons).where(tournament_persons: {:tournament_id => @fight.tournament_id})
+    p = [nil]
+    @persons =  p + Person.includes(:tournament_persons).where(tournament_persons: {:tournament_id => @fight.tournament_id})
                    .order('last_name asc, first_name asc, middle_name asc')
     render 'fights/edit'
   end
