@@ -1,29 +1,41 @@
-<% def grid(fight) %>
-    <li>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Турнирная сетка</h1>
+    </div>
+    <div class="col-md-11">
+      <div id="treeview3" class="treeview">
+        <ul class="list-group">
+          <% grid(@final, 0) %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>
+
+<% def grid(fight, node_num) %>
+    <li class="list-group-item node-treeview3" data-nodeid=<%= node_num %>>
+      <span class="icon expand-icon glyphicon glyphicon-minus"></span><span class="icon node-icon"></span>
+      <br/>
+      <% if node_num >0 %>
+          <span class="indent"></span>
+      <% end %>
       <% if !fight.white_person.nil? %>
-          <%= fight.white_person.last_name.to_s+' '+' '+fight.white_person.first_name.to_s+' '+' '+fight.white_person.middle_name.to_s %>
+          <%= fight.white_person.fio.to_s %>
       <% end %>
-    </li>
-    <li>
+      <br/>
       <% if !fight.red_person_id.nil? %>
-          <%= fight.red_person.last_name.to_s+' '+' '+fight.red_person.first_name.to_s+' '+' '+fight.red_person.middle_name.to_s %>
+          <%= fight.red_person.fio.to_s %>
       <% end %>
-    </li>
-    <li>
+      <br/>
       <%= link_to 'Детали', '/fight/'+fight.id.to_s %>
     </li>
     <% fight.childs.each do |child| %>
-        <ol>
-          <% grid(child) %>
-        </ol>
+        <ul>
+          <% grid(child, node_num+1) %>
+        </ul>
     <% end %>
 <% end %>
-<table>
-<ol>
-  <tr>
-    <td>
-  <% grid(@final) %>
-    </td>
-  </tr>
-</ol>
-</table>

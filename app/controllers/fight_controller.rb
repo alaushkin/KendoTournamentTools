@@ -32,6 +32,7 @@ class FightController < ApplicationController
 
   def grid_view
     @final = Fight.where({:tournament_id => params[:tournament_id], :parent_id => nil, :tournament_pool_id => nil}).first
+    @links = [{:name => 'К турниру', :link => '/tournament/'+@final.tournament_id.to_s}]
     render 'fights/grid'
   end
 
