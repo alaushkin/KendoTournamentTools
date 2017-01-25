@@ -1,21 +1,3 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-11" align="center">
-      <h1>Турнирная сетка</h1>
-    </div>
-    <div class="col-md-11">
-      <div id="treeview3" class="treeview">
-        <ul class="list-group">
-          <% grid(@final, 0) %>
-        </ul>
-      </div>
-    </div>
-    <div class="col-md-11" align="center">
-      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
-    </div>
-  </div>
-</div>
-
 <% def grid(fight, node_num) %>
     <li class="list-group-item node-treeview3" data-nodeid=<%= node_num %>>
       <span class="icon expand-icon glyphicon glyphicon-minus"></span><span class="icon node-icon"></span>
@@ -39,3 +21,20 @@
         </ul>
     <% end %>
 <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-11" align="center">
+      <h1>Турнирная сетка</h1>
+    </div>
+    <div class="col-md-11">
+      <div id="treeview3" class="treeview">
+        <ul class="list-group">
+          <% grid(@final, 0) %>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-11" align="center">
+      <%= render partial: 'layouts/footer-nav', locals: {links: @links} %>
+    </div>
+  </div>
+</div>
